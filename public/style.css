@@ -1,0 +1,283 @@
+:root {
+    /* Palette Gigini / Wordle Moderno */
+    --primary-color: #333;
+    --accent-color: #007bff; /* Un blu pulito tipico dei siti corporate/blog */
+    --bg-color: #f4f4f7;
+    --card-bg: #ffffff;
+    --text-color: #212121;
+    --text-light: #888;
+    
+    /* Wordle Colors */
+    --w-green: #6aaa64;
+    --w-yellow: #c9b458;
+    --w-gray: #787c7e;
+    --w-missing: #d3d6da; /* Colore casella vuota */
+    
+    --header-height: 60px;
+    --border-radius: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: --bg-color;
+    color: var(--text-color);
+    padding-top: var(--header-height);
+    background-color: var(--bg-color);
+}
+
+/* --- HEADER --- */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.header-center h1 {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    color: var(--primary-color);
+}
+
+/* --- MENU OVERLAY --- */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Nascosto */
+    width: 250px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 1100;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu.open {
+    right: 0;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-menu li a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.side-menu li a:hover {
+    background-color: #f9f9f9;
+}
+
+.side-menu .separator {
+    height: 20px;
+    background: transparent;
+}
+
+/* --- CONTAINER & CARDS --- */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+h2, h3, h4 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* --- WORDLE TILES --- */
+.wordle-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.row, .wordle-row-interactive {
+    display: flex;
+    gap: 5px;
+}
+
+.tile {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+/* Static Colors */
+.tile.green { background-color: var(--w-green); }
+.tile.yellow { background-color: var(--w-yellow); }
+.tile.gray { background-color: var(--w-gray); }
+
+/* Interactive Helper Tiles */
+.tile.interactive {
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.tile.interactive:active {
+    opacity: 0.8;
+}
+
+/* --- BUTTONS & FORMS --- */
+.btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: opacity 0.2s;
+}
+
+.btn-primary { background: var(--primary-color); color: white; }
+.btn-success { background: var(--w-green); color: white; }
+.btn-whatsapp { background: #25D366; color: white; width: 100%; }
+
+.btn:hover { opacity: 0.9; }
+
+.inline-form {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"], textarea {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+/* Helper Specifics */
+.helper-row-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-icon-small {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.btn-icon-trash {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+.btn-icon-trash:hover { opacity: 1; color: red; }
+
+.word-tags span {
+    display: inline-block;
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 3px;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+/* --- LISTS --- */
+.list-container {
+    text-align: left;
+    margin-top: 1rem;
+}
+.list-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.list-item .word { font-weight: bold; font-size: 1.1rem; }
+.list-item .meta { color: #888; font-size: 0.85rem; }
+
+/* --- UTILITIES --- */
+.hidden-view { display: none; }
+.active-view { display: block; animation: fadeIn 0.3s; }
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #888;
+    font-size: 0.85rem;
+    border-top: 1px solid #e1e4e8;
+}
+
+footer a { color: #888; text-decoration: none; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

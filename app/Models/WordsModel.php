@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class WordleModel extends Model
+class WordsModel extends Model
 {
         protected $table = 'words';
         protected $primaryKey = 'id';

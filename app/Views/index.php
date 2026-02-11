@@ -18,7 +18,7 @@
     <header class="app-header">
         <div class="header-left">
             <button onclick="router('game')" class="icon-btn" aria-label="Bot Home">
-                🤖
+                🤖 TOP
             </button>
         </div>
         

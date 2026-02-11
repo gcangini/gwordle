@@ -8,7 +8,7 @@ class Home extends BaseController
 {
     public function getIndex() {
         $words_model = model(WordsModel::class);
-        $this->data['words'] = $words_model->findAll();
+        $data['words'] = $words_model->findAll();
         return view('index',$data);
     }
 }

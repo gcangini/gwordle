@@ -17,6 +17,7 @@
 </head>
 <body>
 
+    <!-- HEADER -->
     <header class="app-header">
         <div class="header-left">
         </div>
@@ -31,7 +32,9 @@
             </button>
         </div>
     </header>
+    <!-- /HEADER -->
 
+    <!-- MENU -->
     <nav id="side-menu" class="side-menu">
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <ul>
@@ -40,12 +43,15 @@
             <li><a href="#" onclick="router('helper'); toggleMenu()"><i class="fa-solid fa-question"></i> Helper</a></li>
         </ul>
     </nav>
+    <!-- /MENU -->
 
+    <!-- MAIN -->
     <main class="container">
 
+        <!-- BOT PAGE -->
         <section id="view-game" class="active-view">
             <div class="card">
-                <h2>BOT play</h2>
+                <h2><i class="fa-solid fa-robot"></i> BOT play</h2>
                 <div class="wordle-grid">
                     <div class="row">
                         <div class="tile gray">A</div>
@@ -82,22 +88,25 @@
             <div class="card new-game-card">
                 <h3>New game</h3>
                 <form action="/" method="GET" class="inline-form">
-                    <input type="text" name="word" size="10" minlength="5" maxlength="5" placeholder="Insert new word..." required>
+                    <input type="text" name="word" minlength="5" maxlength="5" placeholder="Insert new word..." required>
                     <button type="submit" class="btn btn-primary">PLAY</button>
                 </form>
             </div>
         </section>
+        <!-- /BOT PAGE -->
 
+        <!-- HELPER PAGE -->
         <section id="view-helper" class="hidden-view">
             <div class="card">
                 <h2>Wordle Helper</h2>
-                <form action="/helper" method="GET" id="helper-form">
                     
                     <div class="input-group">
                         <label>Add word:</label>
                         <div class="row-input">
-                            <input type="text" name="new" size="10" minlength="5" maxlength="5" placeholder="Es. SLATE">
-                            <button type="submit" name="add" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i></button>
+                            <form action="/helper" method="GET" id="helper-form">
+                                <input type="text" name="new" size="10" minlength="5" maxlength="5" placeholder="Es. SLATE" required>
+                                <button type="submit" name="add" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
+                            </form>
                         </div>
                     </div>
                     <br>
@@ -131,11 +140,12 @@
                         <button type="button" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
                     </div>
 
+                    <form action="/helper" method="GET" id="helper-form">
                     <div class="actions-row">
                         <a href="/helper" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
                         <button type="submit" name="play" class="btn btn-success">GO <i class="fa-solid fa-play"></i></button>
                     </div>
-                </form>
+                    </form>
             </div>
 
             <div class="results-area">
@@ -166,22 +176,26 @@
                 </div>
             </div>
         </section>
+        <!-- /HELPER PAGE -->
 
+        <!-- WORDS LIST PAGE -->
         <section id="view-lists" class="hidden-view">
             <div class="card">
-                Select:
+                Select words:
                 <div class="word-tags">
-                        <span class="official">Official List</span> <span>Extended list</span> <span class="wordle">Past used list</span> 
+                    <span class="official"><input type="ckeckbox" id="check-official" checked onchange="printWords();">Official</span>
+                    <span class="ext"><input type="ckeckbox" id="check-ext" checked onchange="printWords();">Extended</span>
+                    <span class="wordle"><input type="ckeckbox" id="check-wordle" checked onchange="printWords();">Past used</span> 
                 </div>
                 <div class="search-box">
                     <form action="#" method="GET">
-                         <input type="text" name="pattern" placeholder="RegExp Search...">
-                         <button type="submit" class="btn btn-primary">Search</button>
+                        <input type="text" name="pattern" placeholder="RegExp Search..." required>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
             </div>
             <div class="card">
-                <h2>Words List</h2>
+                <h2>Words List (<span id="word-num"></span>)</h2>
                 <div class="list-container" id="word-list"></div>
 
 <template id="word-template">
@@ -190,7 +204,6 @@
         <span class="meta"></span>
     </div>
 </template>
-
 
 <!--
                     <div class="list-item">
@@ -218,15 +231,16 @@
 
             </div>
         </section>
+        <!-- /WORDS LIST PAGE -->
 
     </main>
+    <!-- /MAIN -->
 
     <footer>
         <p>&copy; 2026 - <a href="https://www.gigini.it" target="_blank">gigini.it</a></p>
     </footer>
 
     <script src="<?= base_url('app.js') ?>"></script>
-
 
     <script>
         const words = <?php echo json_encode($words); ?>;
@@ -235,10 +249,16 @@
         function printWords() {
             const wl = document.getElementById('word-list');
             const template = document.getElementById('word-template');
+            const num = document.getElementById('word-num');
+            const c_official = document.getElementById('ckeck-official').checked;
+            const c_ext = document.getElementById('ckeck-ext').checked;
+            const c_wordle = document.getElementById('ckeck-wordle').checked;
 
             // empty the list (useful for updates)
             wl.innerHTML = '';
 
+            let count = 0;
+            let add = false;
             words.forEach(item => {
                 const clone = template.content.cloneNode(true);
     
@@ -247,19 +267,33 @@
                 const meta = clone.querySelector('.meta');
                 word.textContent = item.word;
 
-                if (item.wordle) {
-                    word.classList.add('wordle');
-                    meta.textContent = "#".item.wordle." • ".item.day;
-                } else if (item.ext) {
-                    word.classList.add('ext');
-                    meta.textContent = "ext";
-                } else {
-                    word.classList.add('official');
-                    meta.textContent = "";
+                add = false;
+                if (item.wordle) { // past used
+                    if (c_wordle) {
+                        word.classList.add('wordle');
+                        meta.textContent = "#"+item.wordle+" • "+item.day;
+                        add = true;
+                    }
+                } else if (item.ext == 1) { // extended
+                    if (c_ext) {
+                        word.classList.add('ext');
+                        meta.textContent = "ext";
+                        add = true;
+                    }
+                } else { // official
+                    if (c_official) {
+                        word.classList.add('official');
+                        meta.textContent = "";
+                        add = true;
+                    }
                 }
 
-                wl.appendChild(clone);
+                if (add) {
+                    wl.appendChild(clone);
+                    count++;
+                }
             });
+            num.innerHTML = count;
         }
 
         printWords();

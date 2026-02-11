@@ -190,11 +190,11 @@
                 <div class="search-box">
                     <form action="<?= base_url('words') ?>" method="POST">
                         <?php if (isset($pattern)) { ?>
-                        <input type="text" name="pattern" value="<?= esc($pattern) ?>" required>
+                        pattern: <b><?= esc(strtoupper($pattern)) ?></b>
                         <?php } else { ?>
                         <input type="text" name="pattern" placeholder="RegExp Search..." required>
                         <?php } ?>
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">New Search</button>
                     </form>
                 </div>
             </div>

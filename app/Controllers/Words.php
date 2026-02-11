@@ -4,11 +4,11 @@ namespace App\Controllers;
 
 use App\Models\WordsModel;
 
-class Word extends BaseController
+class Words extends BaseController
 {
     public function postIndex() {
         $words_model = model('WordsModel');
-        $words = $words_model->orderBy("word")->findAll();
+        $words = $words_model->orderBy('word ASC')->findAll();
         $pattern = request()->getPost('pattern');
         $res = array();
         if (isset($pattern)) {

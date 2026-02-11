@@ -8,7 +8,7 @@ class Home extends BaseController
 {
     public function getIndex() {
         $words_model = model('WordsModel');
-        $data['words'] = $words_model->orderBy("word")->findAll();
+        $data['words'] = $words_model->orderBy('word ASC')->findAll();
         return view('index',$data);
     }
 }

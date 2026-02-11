@@ -14,6 +14,11 @@
     <link rel="shortcut icon" href="<?= base_url('img/favicon.ico') ?>" />
     <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('img/apple-touch-icon.png') ?>" />
     <meta name="apple-mobile-web-app-title" content="gWordle" />
+
+    <script>
+        const words = <?php echo json_encode($words); ?>;
+        console.table(words);
+    </script>
 </head>
 <body>
 
@@ -27,7 +32,7 @@
 
         <div class="header-right">
             <button onclick="toggleMenu()" class="icon-btn" aria-label="Menu">
-                ☰
+                <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
@@ -82,7 +87,7 @@
             <div class="card new-game-card">
                 <h3>New game</h3>
                 <form action="/" method="GET" class="inline-form">
-                    <input type="text" name="word" placeholder="Insert new word..." required>
+                    <input type="text" name="word" size="10" minlength="5" maxlength="5" placeholder="Insert new word..." required>
                     <button type="submit" class="btn btn-primary">PLAY</button>
                 </form>
             </div>
@@ -96,15 +101,15 @@
                     <div class="input-group">
                         <label>Add word:</label>
                         <div class="row-input">
-                            <input type="text" name="new" placeholder="Es. SLATE">
+                            <input type="text" name="new" size="10" minlength="5" maxlength="5" placeholder="Es. SLATE">
                             <button type="submit" name="add" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i></button>
                         </div>
                     </div>
-
+                    <br>
                     <div>
-                        Click letters to match your color/state then GO >
+                        Click letters to match your color/state then GO
                     </div>
-
+                    <br>
                     <div class="helper-row-container">
                         <input type="hidden" name="w1" value="ROAST">
                         <input type="hidden" name="c1" id="c1" value="10100">
@@ -147,13 +152,31 @@
                     </div>
                 </div>
             </div>
+            <div class="results-area">
+                <div class="card">
+                    <h4>Extended List (6)</h4>
+                    <div class="word-tags">
+                        <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
+                        <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                    </div>
+                </div>
+            </div>
+            <div class="results-area">
+                <div class="card">
+                    <h4>Past used list (6)</h4>
+                    <div class="word-tags">
+                        <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
+                        <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="view-lists" class="hidden-view">
             <div class="card">
                 Select:
                 <div class="word-tags">
-                        <span class="official">Official List</span> <span class="wordle">Already played</span> <span>Extended dictionary</span>
+                        <span class="official">Official List</span> <span>Extended list</span> <span class="wordle">Past used list</span> 
                 </div>
                 <div class="search-box">
                     <form action="#" method="GET">

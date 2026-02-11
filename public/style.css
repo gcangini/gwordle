@@ -291,6 +291,7 @@ input[type="text"]:focus {
 
 .word-tags span.official {
     background: var(--logo-blue);
+    color: #eee;
 }
 
 .word-tags span.wordle {

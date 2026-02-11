@@ -14,11 +14,6 @@
     <link rel="shortcut icon" href="<?= base_url('img/favicon.ico') ?>" />
     <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('img/apple-touch-icon.png') ?>" />
     <meta name="apple-mobile-web-app-title" content="gWordle" />
-
-    <script>
-        const words = <?php echo json_encode($words); ?>;
-        console.table(words);
-    </script>
 </head>
 <body>
 
@@ -187,7 +182,17 @@
             </div>
             <div class="card">
                 <h2>Words List</h2>
-                <div class="list-container">
+                <div class="list-container" id="word-list"></div>
+
+<template id="word-template">
+    <div class="list-item">
+        <span class="word"></span>
+        <span class="meta"></span>
+    </div>
+</template>
+
+
+<!--
                     <div class="list-item">
                         <span class="word official">ROAST</span>
                         <span class="meta">#1690 • 2026-02-03</span>
@@ -208,7 +213,9 @@
                         <span class="word ext">AARGH</span>
                         <span class="meta">ext</span>
                     </div>
-                    </div>
+                </div>
+-->
+
             </div>
         </section>
 
@@ -219,5 +226,44 @@
     </footer>
 
     <script src="<?= base_url('app.js') ?>"></script>
+
+
+    <script>
+        const words = <?php echo json_encode($words); ?>;
+        console.table(words);
+
+        function printWords() {
+            const wl = document.getElementById('word-list');
+            const template = document.getElementById('word-template');
+
+            // empty the list (useful for updates)
+            wl.innerHTML = '';
+
+            words.forEach(item => {
+                const clone = template.content.cloneNode(true);
+    
+                // select word and meta tags
+                const word = clone.querySelector('.word');
+                const meta = clone.querySelector('.meta');
+                word.textContent = item.word;
+
+                if (item.wordle) {
+                    word.classList.add('wordle');
+                    meta.textContent = "#".item.wordle." • ".item.day;
+                } else if (item.ext) {
+                    word.classList.add('ext');
+                    meta.textContent = "ext";
+                } else {
+                    word.classList.add('official');
+                    meta.textContent = "";
+                }
+
+                wl.appendChild(clone);
+            });
+        }
+
+        printWords();
+    </script>
+
 </body>
 </html>

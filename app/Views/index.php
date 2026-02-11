@@ -183,9 +183,9 @@
             <div class="card">
                 Select words:
                 <div class="word-tags">
-                    <span class="official"><input type="ckeckbox" id="check-official" checked onchange="printWords();">Official</span>
-                    <span class="ext"><input type="ckeckbox" id="check-ext" checked onchange="printWords();">Extended</span>
-                    <span class="wordle"><input type="ckeckbox" id="check-wordle" checked onchange="printWords();">Past used</span> 
+                    <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();">Official</span>
+                    <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();">Extended</span>
+                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();">Past used</span> 
                 </div>
                 <div class="search-box">
                     <form action="#" method="GET">
@@ -197,39 +197,15 @@
             <div class="card">
                 <h2>Words List (<span id="word-num"></span>)</h2>
                 <div class="list-container" id="word-list"></div>
-
-<template id="word-template">
-    <div class="list-item">
-        <span class="word"></span>
-        <span class="meta"></span>
-    </div>
-</template>
-
-<!--
-                    <div class="list-item">
-                        <span class="word official">ROAST</span>
-                        <span class="meta">#1690 • 2026-02-03</span>
-                    </div>
-                    <div class="list-item">
-                        <span class="word wordle">WEIGH</span>
-                        <span class="meta">#1690 • 2026-02-03</span>
-                    </div>
-                    <div class="list-item">
-                        <span class="word wordle">CIGAR</span>
-                        <span class="meta">#1689 • 2026-02-02</span>
-                    </div>
-                    <div class="list-item">
-                        <span class="word wordle">SPINY</span>
-                        <span class="meta">#1688 • 2026-02-01</span>
-                    </div>
-                    <div class="list-item">
-                        <span class="word ext">AARGH</span>
-                        <span class="meta">ext</span>
-                    </div>
-                </div>
--->
-
             </div>
+
+            <template id="word-template">
+                <div class="list-item">
+                    <span class="word"></span>
+                    <span class="meta"></span>
+                </div>
+            </template>
+
         </section>
         <!-- /WORDS LIST PAGE -->
 
@@ -250,12 +226,14 @@
             const wl = document.getElementById('word-list');
             const template = document.getElementById('word-template');
             const num = document.getElementById('word-num');
-            const c_official = document.getElementById('ckeck-official').checked;
-            const c_ext = document.getElementById('ckeck-ext').checked;
-            const c_wordle = document.getElementById('ckeck-wordle').checked;
+            const c_official = document.getElementById('check-official').checked;
+            const c_ext = document.getElementById('check-ext').checked;
+            const c_wordle = document.getElementById('check-wordle').checked;
 
             // empty the list (useful for updates)
             wl.innerHTML = '';
+            
+            const fragment = document.createDocumentFragment();
 
             let count = 0;
             let add = false;
@@ -289,10 +267,11 @@
                 }
 
                 if (add) {
-                    wl.appendChild(clone);
+                    fragment.appendChild(clone);
                     count++;
                 }
             });
+            wl.appendChild(fragment);
             num.innerHTML = count;
         }
 

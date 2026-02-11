@@ -19,9 +19,6 @@
 
     <header class="app-header">
         <div class="header-left">
-            <button onclick="router('game')" class="icon-btn" aria-label="Bot Home">
-                🤖 TOP
-            </button>
         </div>
         
         <div class="header-center">
@@ -29,9 +26,6 @@
         </div>
 
         <div class="header-right">
-            <button onclick="router('helper')" class="icon-btn" aria-label="Helper">
-                ❓
-            </button>
             <button onclick="toggleMenu()" class="icon-btn" aria-label="Menu">
                 ☰
             </button>
@@ -51,7 +45,7 @@
 
         <section id="view-game" class="active-view">
             <div class="card">
-                <h2>Ultima Partita: pW01</h2>
+                <h2>BOT play</h2>
                 <div class="wordle-grid">
                     <div class="row">
                         <div class="tile gray">A</div>
@@ -80,15 +74,15 @@
                 
                 <div class="actions">
                     <button onclick="shareWhatsApp()" class="btn btn-whatsapp">
-                        📤 Condividi su WhatsApp
+                        <i class="fa-solid fa-share-nodes"></i> share on WhatsApp
                     </button>
                 </div>
             </div>
 
             <div class="card new-game-card">
-                <h3>Nuova Partita</h3>
+                <h3>New game</h3>
                 <form action="/" method="GET" class="inline-form">
-                    <input type="text" name="word" placeholder="Inserisci parola..." required>
+                    <input type="text" name="word" placeholder="Insert new word..." required>
                     <button type="submit" class="btn btn-primary">PLAY</button>
                 </form>
             </div>
@@ -100,14 +94,16 @@
                 <form action="/helper" method="GET" id="helper-form">
                     
                     <div class="input-group">
-                        <label>Aggiungi parola:</label>
+                        <label>Add word:</label>
                         <div class="row-input">
-                            <input type="text" name="new" placeholder="Es. ROAST">
-                            <button type="submit" name="add" class="btn-icon-small">➕</button>
+                            <input type="text" name="new" placeholder="Es. SLATE">
+                            <button type="submit" name="add" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i></button>
                         </div>
                     </div>
 
-                    <hr class="divider">
+                    <div>
+                        Click letters to match your color/state then GO >
+                    </div>
 
                     <div class="helper-row-container">
                         <input type="hidden" name="w1" value="ROAST">
@@ -136,8 +132,8 @@
                     </div>
 
                     <div class="actions-row">
-                        <a href="/helper" class="btn btn-text">Reset</a>
-                        <button type="submit" name="play" class="btn btn-success">SOLVE ▶</button>
+                        <a href="/helper" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
+                        <button type="submit" name="play" class="btn btn-success">GO <i class="fa-solid fa-play"></i></button>
                     </div>
                 </form>
             </div>
@@ -155,14 +151,19 @@
 
         <section id="view-lists" class="hidden-view">
             <div class="card">
-                <h2>Past Words</h2>
+                Select:
+                <div class="word-tags">
+                        <span>Official List</span> <span>Already played</span> <span>EXTended dictionary</span>
+                </div>
                 <div class="search-box">
                     <form action="#" method="GET">
                          <textarea name="pattern" rows="1" placeholder="RegExp Search..."></textarea>
-                         <button type="submit" class="btn btn-primary">Cerca</button>
+                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
-                
+            </div>
+            <div class="card">
+                <h2>Words List</h2>
                 <div class="list-container">
                     <div class="list-item">
                         <span class="word">WEIGH</span>

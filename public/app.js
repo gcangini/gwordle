@@ -9,7 +9,7 @@ const COLOR_MAP = { "gray": 0, "yellow": 1, "green": 2 };
 
 document.addEventListener("DOMContentLoaded", () => {
     // Inizializza la vista
-    router('game'); 
+    router('game');
 });
 
 /**
@@ -28,32 +28,17 @@ function router(viewName) {
     // Mappa i nomi delle rotte agli ID delle sezioni
     if (viewName === 'helper') {
         targetId = 'view-helper';
-    } else if (['wordlist', 'ext', 'played', 'miss'].includes(viewName)) {
+    } else if (viewName === 'list') {
         targetId = 'view-lists';
-        updateListTitle(viewName);
     }
 
     // Mostra la sezione target
     const targetEl = document.getElementById(targetId);
     targetEl.classList.remove('hidden-view');
     targetEl.classList.add('active-view');
-    
-    // Scrolla in cima
-    window.scrollTo(0,0);
-}
 
-/**
- * Aggiorna il titolo della pagina liste in base alla selezione
- */
-function updateListTitle(type) {
-    const titleEl = document.getElementById('list-title');
-    const titles = {
-        'wordlist': 'Official Word List',
-        'ext': 'Extended List',
-        'played': 'Played Words',
-        'miss': 'Missed Words'
-    };
-    titleEl.textContent = titles[type] || 'List';
+    // Scrolla in cima
+    window.scrollTo(0, 0);
 }
 
 /**
@@ -84,15 +69,15 @@ function cycleColor(element, index, inputId) {
     // Determina il colore attuale
     let currentColor = COLORS.find(c => element.classList.contains(c)) || "gray";
     let currentIndex = COLORS.indexOf(currentColor);
-    
+
     // Calcola il prossimo colore
     let nextIndex = (currentIndex + 1) % COLORS.length;
     let nextColor = COLORS[nextIndex];
-    
+
     // Aggiorna classi CSS
     element.classList.remove(currentColor);
     element.classList.add(nextColor);
-    
+
     // Aggiorna il valore nell'input hidden
     const inputEl = document.getElementById(inputId);
     if (inputEl) {

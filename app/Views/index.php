@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ffffff">
     <title>gWordle</title>
+    <script defer src="https://www.gigini.it/fa/js/fontawesome.js"></script>
+    <script defer src="https://www.gigini.it/fa/js/solid.js"></script>
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
     <link rel="manifest" href="<?= base_url('manifest.json') ?>"> 
     <link rel="icon" type="image/png" href="<?= base_url('img/favicon-96x96.png') ?>" sizes="96x96" />
@@ -23,7 +25,7 @@
         </div>
         
         <div class="header-center">
-            <h1>pWordle</h1>
+            <h1>gWordle</h1>
         </div>
 
         <div class="header-right">
@@ -39,12 +41,9 @@
     <nav id="side-menu" class="side-menu">
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <ul>
-            <li><a href="#" onclick="router('wordlist'); toggleMenu()">📜 List</a></li>
-            <li><a href="#" onclick="router('ext'); toggleMenu()">📚 Ext List</a></li>
-            <li><a href="#" onclick="router('played'); toggleMenu()">✅ Played</a></li>
-            <li><a href="#" onclick="router('miss'); toggleMenu()">❌ Missed</a></li>
-            <li class="separator"></li>
-            <li><a href="/login" class="login-link">🔐 Login</a></li>
+            <li><a href="#" onclick="router('game'); toggleMenu()"><i class="fa-solid fa-robot"></i> BOT play</a></li>
+            <li><a href="#" onclick="router('list'); toggleMenu()"><i class="fa-solid fa-list"></i> Words List</a></li>
+            <li><a href="#" onclick="router('helper'); toggleMenu()"><i class="fa-solid fa-question"></i> Helper</a></li>
         </ul>
     </nav>
 
@@ -156,7 +155,7 @@
 
         <section id="view-lists" class="hidden-view">
             <div class="card">
-                <h2 id="list-title">Past Words</h2>
+                <h2>Past Words</h2>
                 <div class="search-box">
                     <form action="#" method="GET">
                          <textarea name="pattern" rows="1" placeholder="RegExp Search..."></textarea>

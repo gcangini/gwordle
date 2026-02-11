@@ -115,7 +115,7 @@
                             <div class="tile interactive gray" onclick="cycleColor(this, 3, 'c1')">S</div>
                             <div class="tile interactive gray" onclick="cycleColor(this, 4, 'c1')">T</div>
                         </div>
-                        <button type="button" class="btn-icon-trash">🗑️</button>
+                        <button type="button" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
                     </div>
 
                      <div class="helper-row-container">
@@ -128,7 +128,7 @@
                             <div class="tile interactive yellow" onclick="cycleColor(this, 3, 'c2')">A</div>
                             <div class="tile interactive green" onclick="cycleColor(this, 4, 'c2')">R</div>
                         </div>
-                        <button type="button" class="btn-icon-trash">🗑️</button>
+                        <button type="button" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
                     </div>
 
                     <div class="actions-row">
@@ -153,11 +153,11 @@
             <div class="card">
                 Select:
                 <div class="word-tags">
-                        <span>Official List</span> <span>Already played</span> <span>EXTended dictionary</span>
+                        <span class="official">Official List</span> <span class="wordle">Already played</span> <span>Extended dictionary</span>
                 </div>
                 <div class="search-box">
                     <form action="#" method="GET">
-                         <textarea name="pattern" rows="1" placeholder="RegExp Search..."></textarea>
+                         <input type="text" name="pattern" placeholder="RegExp Search...">
                          <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
@@ -166,16 +166,24 @@
                 <h2>Words List</h2>
                 <div class="list-container">
                     <div class="list-item">
-                        <span class="word">WEIGH</span>
+                        <span class="word official">ROAST</span>
                         <span class="meta">#1690 • 2026-02-03</span>
                     </div>
                     <div class="list-item">
-                        <span class="word">CIGAR</span>
+                        <span class="word wordle">WEIGH</span>
+                        <span class="meta">#1690 • 2026-02-03</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="word wordle">CIGAR</span>
                         <span class="meta">#1689 • 2026-02-02</span>
                     </div>
                     <div class="list-item">
-                        <span class="word">SPINY</span>
+                        <span class="word wordle">SPINY</span>
                         <span class="meta">#1688 • 2026-02-01</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="word ext">AARGH</span>
+                        <span class="meta">ext</span>
                     </div>
                     </div>
             </div>

@@ -183,12 +183,12 @@
             <div class="card">
                 Select words:
                 <div class="word-tags">
-                    <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();">Official</span>
-                    <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();">Extended</span>
-                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();">Past used</span> 
+                    <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> Official</span>
+                    <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Extended</span>
+                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used</span> 
                 </div>
                 <div class="search-box">
-                    <form action="#" method="GET">
+                    <form action="<?= base_url('list') ?>" method="POST">
                         <input type="text" name="pattern" placeholder="RegExp Search..." required>
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
@@ -274,8 +274,16 @@
             wl.appendChild(fragment);
             num.innerHTML = count;
         }
-
-        printWords();
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize view
+            printWords();
+<?php if (isset($view)) { ?>
+            router('<?= esc($view) ?>');
+<?php } else { ?>
+            router('game');
+<?php }?>
+        });
     </script>
 
 </body>

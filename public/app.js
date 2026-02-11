@@ -7,11 +7,6 @@ const COLORS = ["gray", "yellow", "green"];
 // Mappatura per il valore nascosto dell'input (0, 1, 2)
 const COLOR_MAP = { "gray": 0, "yellow": 1, "green": 2 };
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Inizializza la vista
-    router('game');
-});
-
 /**
  * Gestione Navigazione SPA (Single Page Application)
  * @param {string} viewName - Nome della vista da mostrare ('game', 'helper', 'list', etc.)

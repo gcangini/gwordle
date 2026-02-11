@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\WordsModel;
 
-class List extends BaseController
+class Word extends BaseController
 {
     public function postIndex() {
         $words_model = model('WordsModel');

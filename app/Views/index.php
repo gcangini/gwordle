@@ -188,8 +188,12 @@
                     <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used</span> 
                 </div>
                 <div class="search-box">
-                    <form action="<?= base_url('list') ?>" method="POST">
+                    <form action="<?= base_url('word') ?>" method="POST">
+                        <?php if isset($pattern) { ?>
+                        <input type="text" name="pattern" value="<?= esc($pattern) ?>" required>
+                        <?php } else { ?>
                         <input type="text" name="pattern" placeholder="RegExp Search..." required>
+                        <?php } ?>
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>

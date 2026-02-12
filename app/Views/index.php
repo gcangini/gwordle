@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#234C80">
     <title>gWordle</title>
     <script defer src="https://www.gigini.it/fa/js/fontawesome.js"></script>
     <script defer src="https://www.gigini.it/fa/js/solid.js"></script>
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
-    <link rel="manifest" href="<?= base_url('manifest.json') ?>"> 
+    <link rel="manifest" href="<?= base_url('gwordle.webmanifest') ?>"> 
     <link rel="icon" type="image/png" href="<?= base_url('img/favicon-96x96.png') ?>" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="<?= base_url('img/favicon.svg') ?>" />
     <link rel="shortcut icon" href="<?= base_url('img/favicon.ico') ?>" />
@@ -96,37 +96,46 @@
         <!-- /BOT PAGE -->
 
         <!-- HELPER PAGE -->
+        <form action="<?= base_url('helper') ?>" method="POST" id="helper-form">
         <section id="view-helper" class="hidden-view">
             <div class="card">
-                <h2>Wordle Helper</h2>
-                    
-                    <div class="input-group">
-                        <label>Add word:</label>
-                        <div class="row-input">
-                            <form action="/helper" method="GET" id="helper-form">
-                                <input type="text" name="new" size="10" minlength="5" maxlength="5" placeholder="Es. SLATE" required>
-                                <button type="submit" name="add" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
-                            </form>
-                        </div>
+                <h2>Wordle Helper</h2>    
+                <div class="input-group">
+                    <label>Add word:</label>
+                    <div class="row-input">
+                        <input type="text" name="new"  minlength="5" maxlength="5" placeholder="Es. SLATE" required>
+                        <button type="submit" name="add" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
                     </div>
-                    <br>
-                    <div>
-                        Click letters to match your color/state then GO
-                    </div>
-                    <br>
-                    <div class="helper-row-container">
-                        <input type="hidden" name="w1" value="ROAST">
-                        <input type="hidden" name="c1" id="c1" value="10100">
-                        <div class="wordle-row-interactive">
-                            <div class="tile interactive yellow" onclick="cycleColor(this, 0, 'c1')">R</div>
-                            <div class="tile interactive gray" onclick="cycleColor(this, 1, 'c1')">O</div>
-                            <div class="tile interactive yellow" onclick="cycleColor(this, 2, 'c1')">A</div>
-                            <div class="tile interactive gray" onclick="cycleColor(this, 3, 'c1')">S</div>
-                            <div class="tile interactive gray" onclick="cycleColor(this, 4, 'c1')">T</div>
+                </div>
+                <br>
+                <div>
+                    Click letters to match your color/state then GO
+                </div>
+                <br>
+                <div class="helper-row-container">
+<?php 
+$i = 1;
+foreach ($words as $w) { 
+?>
+                    <input type="hidden" name="w<?= $i ?>" value="<?= $w ?>">
+                    <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $colors[$c-1] ?>">
+                    <div class="wordle-row-interactive">
+<?php 
+    $col = ['gray', 'yellow', 'green'];
+    for ($j=0; $j<5; $j++) {
+?>
+                        <div class="tile interactive <?= $col[$colors[$c-1][$j]] ?>" onclick="cycleColor(this, 0, 'c<?= $i ?>')"><?= $w[$j] ?></div>
+<?php
+    }
+?>
                         </div>
-                        <button type="button" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
+                        <button type="submit" name="del<?= i ?>" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
+<?php
+}
+?>
                     </div>
 
+<!--
                      <div class="helper-row-container">
                         <input type="hidden" name="w2" value="CEDAR">
                         <input type="hidden" name="c2" id="c2" value="01012">
@@ -139,43 +148,43 @@
                         </div>
                         <button type="button" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
                     </div>
-
-                    <form action="/helper" method="GET" id="helper-form">
+-->
                     <div class="actions-row">
-                        <a href="/helper" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
-                        <button type="submit" name="play" class="btn btn-success">GO <i class="fa-solid fa-play"></i></button>
+                        <a href="<?= base_url('helper') ?>" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
+                        <button type="submit" name="play" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
                     </div>
-                    </form>
-            </div>
+                </div>
 
-            <div class="results-area">
-                <div class="card">
-                    <h4>Official List (6)</h4>
-                    <div class="word-tags">
-                        <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
-                        <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                <div class="results-area">
+                    <div class="card">
+                        <h4>Official List (6)</h4>
+                        <div class="word-tags">
+                            <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
+                            <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="results-area">
-                <div class="card">
-                    <h4>Extended List (6)</h4>
-                    <div class="word-tags">
-                        <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
-                        <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                <div class="results-area">
+                    <div class="card">
+                        <h4>Extended List (6)</h4>
+                        <div class="word-tags">
+                            <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
+                            <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="results-area">
-                <div class="card">
-                    <h4>Past used list (6)</h4>
-                    <div class="word-tags">
-                        <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
-                        <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                <div class="results-area">
+                    <div class="card">
+                        <h4>Past used list (6)</h4>
+                        <div class="word-tags">
+                            <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
+                            <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        </form>
         <!-- /HELPER PAGE -->
 
         <!-- WORDS LIST PAGE -->

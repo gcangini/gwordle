@@ -103,13 +103,13 @@
                 <div class="input-group">
                     <label>Add word:</label>
                     <div class="row-input">
-                        <input type="text" name="new"  minlength="5" maxlength="5" placeholder="Es. SLATE" required>
+                        <input type="text" name="new"  minlength="5" maxlength="5" placeholder="Es. SLATE">
                         <button type="submit" name="add" value="1" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
                     </div>
                 </div>
                 <br>
 <?php 
-if (isset($p_words)) {
+if (isset($p_words) && (count($p_words) != 0)) {
 ?>
                 <div>
                     Click letters to match your color/state then GO
@@ -135,6 +135,7 @@ if (isset($p_words)) {
                     <button type="submit" name="del<?= $i ?>" value="1" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
                 </div>
 <?php
+        $i++;
     }
 ?>
 <!--
@@ -153,7 +154,7 @@ if (isset($p_words)) {
 -->
                 <div class="actions-row">
                     <a href="<?= base_url('helper') ?>" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
-                    <button type="submit" name="play" value="1" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
+                    <button type="submit" name="search" value="1" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
                 </div>
             </div>
 

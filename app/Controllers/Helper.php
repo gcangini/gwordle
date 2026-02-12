@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 class Helper extends BaseController
 {
+    protected $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     protected $data = array();
 
     // read data from POST form
@@ -11,23 +12,50 @@ class Helper extends BaseController
         $i=1;
         $this->data['p_words'] = array();
         $this->data['colors'] = array();
+        for ($i=1; $i<7;$i++) { // check up to 6 words
+            $w = request()->getPost('w'.$i);
+            if (!isset($w)) { // exit from the cycle
+                break;
+            }
+            $w = strtoupper($w);
+            // check again that word is correct
+            if ((null === request()->getPost('del'.$i)) &&  // not marked for deletion
+                (strlen($w) == 5) &&                        // 5 chars
+                (strspn($w,$this->alphabet) == 5) &&        // all literals
+                (!in_array($w,$this->data['p_words']))      // not already present
+                ) {
+                $this->data['p_words'][] = $w;
+                $this->data['colors'][] = request()->getPost('c'.$i);
+            }
+        }
+        /*
         while (request()->getPost('w'.$i) && $i<7) {
-            if (null !== request()->getPost('del'.$i)) {
+            if (null === request()->getPost('del'.$i)) {
                 $this->data['p_words'][] = request()->getPost('w'.$i);
                 $this->data['colors'][] = request()->getPost('c'.$i);
             }
             $i++;
-        }
+        }*/
+
+        // add new word ?
         $add = request()->getPost('add');
         $new = request()->getPost('new');
-        if (($i<6) && $add && $new && (strlen($new) == 5)) {
-            $this->data['p_words'][] = strtoupper($new);
+        if ($new) $new = strtoupper($new);
+        if ($add && $new &&                             // request to add new word
+            (count($this->data['p_words'])<6) &&        // space available
+            (strlen($new) == 5) &&                      // 5 chars
+            (strspn($new,$this->alphabet) == 5) &&      // all literals
+            (!in_array($new,$this->data['p_words']))    // not already present
+            ) {
+            $this->data['p_words'][] = $new;
             $this->data['colors'][] = "00000";
         }
-        if (request()->getPost('play')) {
-            $this->data['play'] = true;
+
+        // get result ?
+        if (request()->getPost('search')) {
+            $this->data['search'] = true;
         } else {
-            $this->data['play'] = false;
+            $this->data['search'] = false;
         }
     }
 
@@ -95,7 +123,7 @@ class Helper extends BaseController
     public function getIndex() {
         $words_model = model('WordsModel');
         $data['words'] = $words_model->orderBy('word ASC')->findAll();
-        $data['view'] = 'help';
+        $data['view'] = 'helper';
         return view('index',$data);
     }
 

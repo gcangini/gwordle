@@ -108,30 +108,33 @@
                     </div>
                 </div>
                 <br>
+<?php 
+if (isset($p_words)) {
+?>
                 <div>
                     Click letters to match your color/state then GO
                 </div>
                 <br>
                 <div class="helper-row-container">
 <?php 
-$i = 1;
-foreach ($words as $w) { 
+    $i = 1;
+    foreach ($p_words as $w) { 
 ?>
                     <input type="hidden" name="w<?= $i ?>" value="<?= $w ?>">
                     <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $colors[$c-1] ?>">
                     <div class="wordle-row-interactive">
 <?php 
-    $col = ['gray', 'yellow', 'green'];
-    for ($j=0; $j<5; $j++) {
+        $col = ['gray', 'yellow', 'green'];
+        for ($j=0; $j<5; $j++) {
 ?>
                         <div class="tile interactive <?= $col[$colors[$c-1][$j]] ?>" onclick="cycleColor(this, 0, 'c<?= $i ?>')"><?= $w[$j] ?></div>
 <?php
-    }
+        }
 ?>
                         </div>
                         <button type="submit" name="del<?= i ?>" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
 <?php
-}
+    }
 ?>
                     </div>
 
@@ -182,6 +185,15 @@ foreach ($words as $w) {
                         </div>
                     </div>
                 </div>
+<?php
+} else {
+?>
+                <div>
+                    Add the words you played...
+                </div>
+<?php
+}    
+?>
             </div>
         </section>
         </form>

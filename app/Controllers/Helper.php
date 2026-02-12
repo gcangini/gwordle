@@ -10,11 +10,11 @@ class Helper extends BaseController
     // read data from POST form
     private function getData() {
         $i=1;
-        $this->data['words'] = array();
+        $this->data['p_words'] = array();
         $this->data['colors'] = array();
         while (request()->getPost('w'.$i) && $i<7) {
             if (!isset(request()->getPost('del'.$i))) {
-                $this->data['words'][] = request()->getPost('w'.$i);
+                $this->data['p_words'][] = request()->getPost('w'.$i);
                 $this->data['colors'][] = request()->getPost('c'.$i);
             }
             $i++;
@@ -22,7 +22,7 @@ class Helper extends BaseController
         $add = request()->getPost('add');
         $new = request()->getPost('new');
         if (($i <6) && $add & $new && (strlen($new) == 5)) {
-            $this->data['words'][] = strtoupper($new);
+            $this->data['p_words'][] = strtoupper($new);
             $this->data['colors'][] = "00000";
         }
         if (request()->getPost('play')) {
@@ -101,6 +101,7 @@ class Helper extends BaseController
     }
 
     public function postIndex() {
-        return view('index',$data);
+        $this->getData();
+        return view('index',$this->data);
     }
 }

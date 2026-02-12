@@ -153,9 +153,6 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $official = array_filter($res, fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
         $ext = array_filter($res, fn($item) => $item['ext'] == 1);
         $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);
-/*        print_r($official);
-        print_r($ext);
-        print_r($wordle);*/
 ?>
                 <div class="results-area">
                     <div class="card">
@@ -165,6 +162,36 @@ if (isset($p_words) && (count($p_words) != 0)) {
         foreach ($official as $w_o) {
 ?>
                         <span><?= $w_o['word'] ?></span>
+<?php
+        }
+?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-area">
+                    <div class="card">
+                        <h4 class="ext">Extended (<?= count($ext) ?>)</h4>
+                        <div class="word-tags">
+<?php
+        foreach ($ext as $w_e) {
+?>
+                        <span><?= $w_e['word'] ?></span>
+<?php
+        }
+?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-area">
+                    <div class="card">
+                        <h4 class="ext">Past used (<?= count($wordle) ?>)</h4>
+                        <div class="word-tags">
+<?php
+        foreach ($wordle as $w_w) {
+?>
+                        <span><?= $w_w['word'] ?></span>
 <?php
         }
 ?>

@@ -299,6 +299,20 @@ input[type="text"]:focus {
     background: var(--logo-orange);
 }
 
+h4.official {
+    background: var(--logo-blue);
+    color: #eee;
+}
+
+h4.ext {
+    background: var(--bg-color);
+    font-style: italic;
+}
+
+h4.wordle {
+    background: var(--logo-orange);
+}
+
 /* --- LISTS --- */
 .list-container {
     text-align: left;

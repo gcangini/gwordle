@@ -13,7 +13,7 @@ class Helper extends BaseController
         $this->data['p_words'] = array();
         $this->data['colors'] = array();
         while (request()->getPost('w'.$i) && $i<7) {
-            if (!isset(request()->getPost('del'.$i))) {
+            if (null !== request()->getPost('del'.$i)) {
                 $this->data['p_words'][] = request()->getPost('w'.$i);
                 $this->data['colors'][] = request()->getPost('c'.$i);
             }
@@ -102,6 +102,9 @@ class Helper extends BaseController
 
     public function postIndex() {
         $this->getData();
+        $words_model = model('WordsModel');
+        $this->data['words'] = $words_model->orderBy('word ASC')->findAll();
+        $this->data['view'] = 'helper';
         return view('index',$this->data);
     }
 }

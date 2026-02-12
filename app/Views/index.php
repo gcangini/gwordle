@@ -96,8 +96,8 @@
         <!-- /BOT PAGE -->
 
         <!-- HELPER PAGE -->
-        <form action="<?= base_url('helper') ?>" method="POST" id="helper-form">
         <section id="view-helper" class="hidden-view">
+            <form action="<?= base_url('helper') ?>" method="POST" id="helper-form">
             <div class="card">
                 <h2>Wordle Helper</h2>    
                 <div class="input-group">
@@ -195,8 +195,8 @@ if (isset($p_words)) {
 }    
 ?>
             </div>
+            </form>
         </section>
-        </form>
         <!-- /HELPER PAGE -->
 
         <!-- WORDS LIST PAGE -->

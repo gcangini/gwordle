@@ -61,15 +61,14 @@ class Helper extends BaseController
 
     // create RegExp pattern (based on wors/letters/colors)
     private function createPattern() {
-        $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $i = 0;
         $yellow = "";
         $gray = "";
         $pattern = array();
         for ($j=0; $j<5; $j++) {
-            $pattern[] = $alphabet;
+            $pattern[] = $this->alphabet;
         }
-        foreach ($this->data['words'] as $word) {
+        foreach ($this->data['p_words'] as $word) {
             $color = $this->data['colors'][$i];
             $tmp_gray = "";
             $tmp_yellow = "";
@@ -120,18 +119,39 @@ class Helper extends BaseController
         return $res;
     }
 
-    public function getIndex() {
-        $words_model = model('WordsModel');
-        $data['words'] = $words_model->orderBy('word ASC')->findAll();
-        $data['view'] = 'helper';
-        return view('index',$data);
+    private function match($w, $pattern) {
+        $ptn = substr($pattern,0,strpos($pattern,"+"));
+        $yellow = substr(strstr($pattern,"+"),1);
+        if (!preg_match("/".$ptn."/i",$w))
+            return false;
+        for ($i=0; $i<strlen($yellow); $i++) {
+            if (substr_count($yellow,$yellow[$i]) > substr_count($w,$yellow[$i]))
+                return false;
+            }
+        return true;
     }
 
-    public function postIndex() {
-        $this->getData();
+    private function init() {
         $words_model = model('WordsModel');
         $this->data['words'] = $words_model->orderBy('word ASC')->findAll();
         $this->data['view'] = 'helper';
+    }
+
+    public function getIndex() {
+        $this->init();
+        return view('index',$this->data);
+    }
+
+    public function postIndex() {
+        $this->init();
+        $this->getData();
+        $pattern = $this->createPattern();
+        $this->data['res'] = array();
+        foreach ($this->data['words'] as $w) {
+            if ($this->match($w['word'],$pattern) {
+                $this->data['res'][] = $w;
+            }
+        }
         return view('index',$this->data);
     }
 }

@@ -99,7 +99,10 @@
         <section id="view-helper" class="hidden-view">
             <form action="<?= base_url('helper') ?>" method="POST" id="helper-form">
             <div class="card">
-                <h2>Wordle Helper</h2>    
+                <h2>Wordle Helper</h2>
+<?php 
+if (isset($p_words) && (count($p_words) != 6)) {
+?>
                 <div class="input-group">
                     <label>Add word:</label>
                     <div class="row-input">
@@ -109,6 +112,7 @@
                 </div>
                 <br>
 <?php 
+}
 if (isset($p_words) && (count($p_words) != 0)) {
 ?>
                 <div>
@@ -127,7 +131,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $col = ['gray', 'yellow', 'green'];
         for ($j=0; $j<5; $j++) {
 ?>
-                        <div class="tile interactive <?= $col[$colors[$i-1][$j]] ?>" onclick="cycleColor(this, 0, 'c<?= $i ?>')"><?= $w[$j] ?></div>
+                        <div class="tile interactive <?= $col[$colors[$i-1][$j]] ?>" onclick="cycleColor(this, <?= $j ?>, 'c<?= $i ?>')"><?= $w[$j] ?></div>
 <?php
         }
 ?>
@@ -138,26 +142,23 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $i++;
     }
 ?>
-<!--
-                     <div class="helper-row-container">
-                        <input type="hidden" name="w2" value="CEDAR">
-                        <input type="hidden" name="c2" id="c2" value="01012">
-                        <div class="wordle-row-interactive">
-                            <div class="tile interactive gray" onclick="cycleColor(this, 0, 'c2')">C</div>
-                            <div class="tile interactive yellow" onclick="cycleColor(this, 1, 'c2')">E</div>
-                            <div class="tile interactive gray" onclick="cycleColor(this, 2, 'c2')">D</div>
-                            <div class="tile interactive yellow" onclick="cycleColor(this, 3, 'c2')">A</div>
-                            <div class="tile interactive green" onclick="cycleColor(this, 4, 'c2')">R</div>
-                        </div>
-                        <button type="button" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
-                    </div>
--->
                 <div class="actions-row">
                     <a href="<?= base_url('helper') ?>" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
                     <button type="submit" name="search" value="1" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
                 </div>
             </div>
+<?php 
+    if (isset($res) && (count($res) != 0)) {
+        // Filtra gli elementi dove il secondo valore (indice 1) è uguale a 1
+        $official = array_filter($res, fn($item) => (($item['ext'] === 0) && ($item['wordle'] === null)));
+        $ext = array_filter($res, fn($item) => $item['ext'] === 1);
+        $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);
+        print_r($official);
+        print_r($ext);
+        print_r($wordle);
+?>
 
+<!--
                 <div class="results-area">
                     <div class="card">
                         <h4>Official List (6)</h4>
@@ -185,7 +186,9 @@ if (isset($p_words) && (count($p_words) != 0)) {
                         </div>
                     </div>
                 </div>
+-->
 <?php
+    }
 } else {
 ?>
                 <div>

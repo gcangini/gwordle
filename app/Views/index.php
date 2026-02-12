@@ -49,7 +49,7 @@
     <main class="container">
 
         <!-- BOT PAGE -->
-        <section id="view-game" class="active-view">
+        <section id="view-game" class="hidden-view">
             <div class="card">
                 <h2><i class="fa-solid fa-robot"></i> BOT play</h2>
                 <div class="wordle-grid">
@@ -104,7 +104,7 @@
                     <label>Add word:</label>
                     <div class="row-input">
                         <input type="text" name="new"  minlength="5" maxlength="5" placeholder="Es. SLATE" required>
-                        <button type="submit" name="add" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
+                        <button type="submit" name="add" value="1" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
                     </div>
                 </div>
                 <br>
@@ -115,29 +115,28 @@ if (isset($p_words)) {
                     Click letters to match your color/state then GO
                 </div>
                 <br>
-                <div class="helper-row-container">
 <?php 
     $i = 1;
     foreach ($p_words as $w) { 
 ?>
+                <div class="helper-row-container">
                     <input type="hidden" name="w<?= $i ?>" value="<?= $w ?>">
-                    <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $colors[$c-1] ?>">
+                    <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $colors[$i-1] ?>">
                     <div class="wordle-row-interactive">
 <?php 
         $col = ['gray', 'yellow', 'green'];
         for ($j=0; $j<5; $j++) {
 ?>
-                        <div class="tile interactive <?= $col[$colors[$c-1][$j]] ?>" onclick="cycleColor(this, 0, 'c<?= $i ?>')"><?= $w[$j] ?></div>
+                        <div class="tile interactive <?= $col[$colors[$i-1][$j]] ?>" onclick="cycleColor(this, 0, 'c<?= $i ?>')"><?= $w[$j] ?></div>
 <?php
         }
 ?>
-                        </div>
-                        <button type="submit" name="del<?= i ?>" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <button type="submit" name="del<?= $i ?>" value="1" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
+                </div>
 <?php
     }
 ?>
-                    </div>
-
 <!--
                      <div class="helper-row-container">
                         <input type="hidden" name="w2" value="CEDAR">
@@ -152,11 +151,11 @@ if (isset($p_words)) {
                         <button type="button" class="btn-icon-trash"><i class="fa-solid fa-trash"></i></button>
                     </div>
 -->
-                    <div class="actions-row">
-                        <a href="<?= base_url('helper') ?>" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
-                        <button type="submit" name="play" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
-                    </div>
+                <div class="actions-row">
+                    <a href="<?= base_url('helper') ?>" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
+                    <button type="submit" name="play" value="1" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
                 </div>
+            </div>
 
                 <div class="results-area">
                     <div class="card">

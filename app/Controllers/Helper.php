@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 class Helper extends BaseController
 {
-    protected $helpers = ['miss'];
     protected $data = array();
 
     // read data from POST form
@@ -21,7 +20,7 @@ class Helper extends BaseController
         }
         $add = request()->getPost('add');
         $new = request()->getPost('new');
-        if (($i <6) && $add & $new && (strlen($new) == 5)) {
+        if (($i<6) && $add && $new && (strlen($new) == 5)) {
             $this->data['p_words'][] = strtoupper($new);
             $this->data['colors'][] = "00000";
         }

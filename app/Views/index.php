@@ -101,7 +101,7 @@
             <div class="card">
                 <h2>Wordle Helper</h2>
 <?php 
-if (isset($p_words) && (count($p_words) != 6)) {
+if (!isset($p_words) || (count($p_words) != 6)) {
 ?>
                 <div class="input-group">
                     <label>Add word:</label>
@@ -150,14 +150,27 @@ if (isset($p_words) && (count($p_words) != 0)) {
 <?php 
     if (isset($res) && (count($res) != 0)) {
         // Filtra gli elementi dove il secondo valore (indice 1) è uguale a 1
-        $official = array_filter($res, fn($item) => (($item['ext'] === 0) && ($item['wordle'] === null)));
-        $ext = array_filter($res, fn($item) => $item['ext'] === 1);
+        $official = array_filter($res, fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
+        $ext = array_filter($res, fn($item) => $item['ext'] == 1);
         $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);
-        print_r($official);
+/*        print_r($official);
         print_r($ext);
-        print_r($wordle);
+        print_r($wordle);*/
 ?>
-
+                <div class="results-area">
+                    <div class="card">
+                        <h4 class="official">Official (<?= count($official) ?>)</h4>
+                        <div class="word-tags">
+<?php
+        foreach ($official as $w_o) {
+?>
+                        <span><?= $w_o['word'] ?></span>
+<?php
+        }
+?>
+                        </div>
+                    </div>
+                </div>
 <!--
                 <div class="results-area">
                     <div class="card">

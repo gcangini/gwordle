@@ -145,11 +145,13 @@ class Helper extends BaseController
     public function postIndex() {
         $this->init();
         $this->getData();
-        $pattern = $this->createPattern();
-        $this->data['res'] = array();
-        foreach ($this->data['words'] as $w) {
-            if ($this->match($w['word'],$pattern) {
-                $this->data['res'][] = $w;
+        if ($this->data['search']) {
+            $pattern = $this->createPattern();
+            $this->data['res'] = array();
+            foreach ($this->data['words'] as $w) {
+                if ($this->match($w['word'],$pattern)) {
+                    $this->data['res'][] = $w;
+                }
             }
         }
         return view('index',$this->data);

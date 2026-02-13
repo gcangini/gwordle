@@ -253,12 +253,16 @@ if (isset($p_words) && (count($p_words) != 0)) {
                 </div>
                 <div class="search-box">
                     <form action="<?= base_url('words') ?>" method="POST">
-                        <?php if (isset($pattern)) { ?>
+<?php
+$search_label = "SEARCH";
+if (isset($pattern)) {
+    $search_label = "NEW SEARCH";
+?>
                         pattern: <b><?= esc(strtoupper($pattern)) ?></b>
-                        <?php } else { ?>
+<?php } else { ?>
                         <input type="text" name="pattern" placeholder="RegExp Search..." required>
-                        <?php } ?>
-                        <button type="submit" class="btn btn-primary">New Search</button>
+<?php } ?>
+                        <button type="submit" class="btn btn-primary"><?= $search_label ?></button>
                     </form>
                 </div>
             </div>

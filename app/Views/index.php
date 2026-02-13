@@ -41,6 +41,7 @@
             <li><a href="#" onclick="router('game'); toggleMenu()"><i class="fa-solid fa-robot"></i> BOT play</a></li>
             <li><a href="#" onclick="router('list'); toggleMenu()"><i class="fa-solid fa-list"></i> Words List</a></li>
             <li><a href="#" onclick="router('helper'); toggleMenu()"><i class="fa-solid fa-question"></i> Helper</a></li>
+            <li id="btn-install"><a href="#"><i class="fa-solid fa-question"></i> Install</a></li>
         </ul>
     </nav>
     <!-- /MENU -->

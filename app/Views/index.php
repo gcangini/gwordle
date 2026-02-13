@@ -53,7 +53,80 @@
         <section id="view-game" class="hidden-view">
             <div class="card">
                 <h2><i class="fa-solid fa-robot"></i> BOT play</h2>
+<?php
+if (isset($res) && (count($res)!=0) && isset($sol)) {
+    $colors = [["gray","⬜"],["yellow","🟨"],["green","🟩"]];
+    $share = "🤖 ".count($res)."/6*\\n";
+    $aa = array();
+    $sa = str_split($sol);
+?>
                 <div class="wordle-grid">
+<?php
+?> 
+    foreach ($res as $w) {
+                    <div class="row">
+<?php
+        $wa = str_split($w);
+        for ($i=0; $i<5; $i++) {
+            if ($wa[$i] == $sa[$i]) { // GREEN
+                $col = 2;
+                $aa[$wa[$i]] = 2;
+            } elseif (!in_array($wa[$i], $sa)) { // GRAY
+                $col = 0;
+                if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
+                    $aa[$wa[$i]] = 0;
+            } else {
+                if (substr_count($sol,$wa[$i]) >= substr_count($word,$wa[$i])) { // YELLOW
+                    $col = 1;
+                    if ($aa[$wa[$i]] != 2) 
+                        $aa[$wa[$i]] = 1;
+                } else {
+                    $tot = 0;
+                    $greens = 0;
+                    for ($j=0; $j<5; $j++) {
+                        if ($sa[$j] == $wa[$i]) {
+                            $tot = $tot+1;
+                            if ($sa[$j] == $wa[$j]) {
+                                $greens = $greens+1;
+                            }
+                        }
+                    }
+                    $yellows = $tot-$greens;
+                    if ($yellows == 0) { // GRAY
+                        $col = 0;
+                        if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
+                            $aa[$wa[$i]] = 0;
+                    } else {
+                        for ($j=0; $j<$i; $j++) {
+                            if (($wa[$j] == $wa[$i]) && ($wa[$j] != $sa[$j])) {
+                                $yellows = $yellows-1;
+                            }
+                        }
+                        if ($yellows <= 0) { // GRAY
+                            $col = 0;
+                            if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
+                                $aa[$wa[$i]] = 0;
+                        } else { // YELLOW
+                            $col = 1;
+                            if ($aa[$wa[$i]] != 2)
+                                $aa[$wa[$i]] = 1;
+                        }
+                    }
+                }
+            }
+            $share .= $colors[$col][1];
+?>
+                        <div class="tile <?= $colors[$col][0] ?>"><?= $wa[$i] ?></div>
+<?php
+        }
+        $share .= "\\n";
+?>
+                    </div>
+<?php
+    }
+?>
+                </div>
+<!--
                     <div class="row">
                         <div class="tile gray">A</div>
                         <div class="tile green">R</div>
@@ -76,7 +149,10 @@
                         <div class="tile green">P</div>
                     </div>
                 </div>
-                
+-->
+<?php
+}
+?>               
                 <p class="result-text">Played with word <b>CREEP</b></p>
                 
                 <div class="actions">
@@ -88,7 +164,7 @@
 
             <div class="card new-game-card">
                 <h3>New game</h3>
-                <form action="/" method="GET" class="inline-form">
+                <form action="<?= base_url('bot') ?>" method="POST" class="inline-form">
                     <input type="text" name="word" minlength="5" maxlength="5" placeholder="Insert new word..." required>
                     <button type="submit" class="btn btn-primary">PLAY</button>
                 </form>
@@ -150,7 +226,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
             </div>
 <?php 
     if (isset($res) && (count($res) != 0)) {
-        // Filtra gli elementi dove il secondo valore (indice 1) è uguale a 1
+        // Filtra gli elementi per dividere l'array in 3
         $official = array_filter($res, fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
         $ext = array_filter($res, fn($item) => $item['ext'] == 1);
         $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);

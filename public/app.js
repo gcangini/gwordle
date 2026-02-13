@@ -84,3 +84,43 @@ function cycleColor(element, index, inputId) {
         // console.log(`Aggiornato ${inputId}: ${inputEl.value}`);
     }
 }
+
+/**
+ * Service Worker
+ */
+// Controlla se il browser supporta i service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registrato con scope:', registration.scope);
+      })
+      .catch(error => {
+        console.log('Registrazione ServiceWorker fallita:', error);
+      });
+  });
+}
+
+// bottone per l'installazione
+let deferredPrompt;
+const installBtn = document.getElementById('btn-install');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+	// Impedisce al browser di mostrare il suo mini-infobar
+	e.preventDefault();
+	// Salva l'evento per usarlo dopo
+	deferredPrompt = e;
+	// Mostra il tuo bottone personalizzato
+	installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+	if (deferredPrompt) {
+		// Mostra il prompt d'installazione nativo
+		deferredPrompt.prompt();
+		const { outcome } = await deferredPrompt.userChoice;
+		console.log(`L'utente ha ${outcome} l'installazione`);
+		deferredPrompt = null;
+		installBtn.style.display = 'none';
+	}
+});

@@ -31,7 +31,7 @@
     </header>
     <!-- /HEADER -->
 
-  <!-- MAIN -->
+    <!-- MAIN -->
     <main class="container">
 
         <!-- WORDS LIST PAGE -->

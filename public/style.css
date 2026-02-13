@@ -235,6 +235,8 @@ h4 {
 .inline-form {
     display: flex;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 input[type="text"],
@@ -244,6 +246,7 @@ textarea {
     border-radius: 4px;
     width: 50%;
     font-size: 1rem;
+    text-transform: uppercase;
 }
 
 input[type="text"]:focus {

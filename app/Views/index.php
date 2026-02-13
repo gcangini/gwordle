@@ -187,7 +187,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
 
                 <div class="results-area">
                     <div class="card">
-                        <h4 class="ext">Past used (<?= count($wordle) ?>)</h4>
+                        <h4 class="wordle">Past used (<?= count($wordle) ?>)</h4>
                         <div class="word-tags">
 <?php
         foreach ($wordle as $w_w) {

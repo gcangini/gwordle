@@ -88,39 +88,59 @@ function cycleColor(element, index, inputId) {
 /**
  * Service Worker
  */
-// Controlla se il browser supporta i service worker
+// Check if servce worker is supported
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('ServiceWorker registrato con scope:', registration.scope);
-      })
-      .catch(error => {
-        console.log('Registrazione ServiceWorker fallita:', error);
-      });
-  });
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('ServiceWorker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.log('ServiceWorker registration failed:', error);
+            });
+    });
 }
 
 // bottone per l'installazione
 let deferredPrompt;
 const installBtn = document.getElementById('btn-install');
+installBtn.style.display = 'none';
+
+// Utility function to check if it is on mobile
+function isMobile() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+}
 
 window.addEventListener('beforeinstallprompt', (e) => {
-	// Impedisce al browser di mostrare il suo mini-infobar
-	e.preventDefault();
-	// Salva l'evento per usarlo dopo
-	deferredPrompt = e;
-	// Mostra il tuo bottone personalizzato
-	installBtn.style.display = 'block';
+    // Prevent default browser's mini-infobar
+    e.preventDefault();
+    // Save the event (used after)
+    deferredPrompt = e;
+    // Show the install button ON MOBILE only
+    if (isMobile()) {
+        console.log("Mobile device: display install button");
+        installBtn.style.display = 'block';
+    } else {
+        console.log("Desktop device: hide install button");
+    }
 });
 
 installBtn.addEventListener('click', async () => {
-	if (deferredPrompt) {
-		// Mostra il prompt d'installazione nativo
-		deferredPrompt.prompt();
-		const { outcome } = await deferredPrompt.userChoice;
-		console.log(`L'utente ha ${outcome} l'installazione`);
-		deferredPrompt = null;
-		installBtn.style.display = 'none';
-	}
+    if (deferredPrompt) {
+        // Show native installation prompt
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User has ${outcome} the install`);
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+    }
+});
+
+// after install
+window.addEventListener('appinstalled', (evt) => {
+    console.log('PWA successfully installed');
+    // Install button always hidden
+    installBtn.style.display = 'none';
+    deferredPrompt = null;
 });

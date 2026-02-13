@@ -4,6 +4,6 @@
     <title>gWordle</title>
 </head>
 <body>
-    <?php print_r($max) ?>
+    <?= $res ?>
 </body>
 </html>

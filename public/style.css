@@ -315,6 +315,7 @@ h4.ext {
 
 h4.wordle {
     background: var(--logo-orange);
+    color: #eee;
 }
 
 /* --- LISTS --- */

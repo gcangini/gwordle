@@ -252,7 +252,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
 
                 <div class="results-area">
                     <div class="card">
-                        <h4 class="wordle">Past used (<?= count($wordle) ?>)</h4>
+                        <h4 class="wordle">Past used* (<?= count($wordle) ?>)</h4>
                         <div class="word-tags">
 <?php
         foreach ($wordle as $w_w) {
@@ -262,6 +262,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
         }
 ?>
                         </div>
+                        <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                     </div>
                 </div>
 <?php

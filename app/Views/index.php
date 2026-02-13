@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -155,7 +155,7 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
                 </div>
 -->
 <?php
-    if ($res[count($res)-1] != $sol) {
+    if ($res[count($res)] != $sol) { // TODO: perchè $res[count($res)] per avere l'ultima parola, anzichè $res[count($res)-1] ??
 ?>
                 <p class="result-text">Played with word <b><?= $sol ?></b> without success...</p>
 <?php

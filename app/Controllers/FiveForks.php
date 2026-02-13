@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\WordsModel;
+use Dom\HTMLDocument;
 
 class FiveForks extends BaseController
 {
@@ -34,7 +35,7 @@ class FiveForks extends BaseController
                         if ($matches[2] == $last['wordle']) {
                             $end = true;
                         } else {
-                            // TODO: insert on db
+                            $words_model->save($new);
                             $c++;
                         }
                     } else {

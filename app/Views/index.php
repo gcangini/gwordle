@@ -130,30 +130,6 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
     }
 ?>
                 </div>
-<!--
-                    <div class="row">
-                        <div class="tile gray">A</div>
-                        <div class="tile green">R</div>
-                        <div class="tile gray">O</div>
-                        <div class="tile gray">S</div>
-                        <div class="tile yellow">E</div>
-                    </div>
-                    <div class="row">
-                        <div class="tile gray">T</div>
-                        <div class="tile green">R</div>
-                        <div class="tile gray">I</div>
-                        <div class="tile green">E</div>
-                        <div class="tile gray">D</div>
-                    </div>
-                    <div class="row">
-                        <div class="tile green">C</div>
-                        <div class="tile green">R</div>
-                        <div class="tile green">E</div>
-                        <div class="tile green">E</div>
-                        <div class="tile green">P</div>
-                    </div>
-                </div>
--->
 <?php
     if ($res[count($res)] != $sol) { // TODO: perchè $res[count($res)] per avere l'ultima parola, anzichè $res[count($res)-1] ??
 ?>
@@ -288,35 +264,6 @@ if (isset($p_words) && (count($p_words) != 0)) {
                         </div>
                     </div>
                 </div>
-<!--
-                <div class="results-area">
-                    <div class="card">
-                        <h4>Official List (6)</h4>
-                        <div class="word-tags">
-                            <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
-                            <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="results-area">
-                    <div class="card">
-                        <h4>Extended List (6)</h4>
-                        <div class="word-tags">
-                            <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
-                            <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="results-area">
-                    <div class="card">
-                        <h4>Past used list (6)</h4>
-                        <div class="word-tags">
-                            <span>GAYER</span> <span>GAZER</span> <span>PALER</span>
-                            <span>PAYER</span> <span>WAGER</span> <span>WAVER</span>
-                        </div>
-                    </div>
-                </div>
--->
 <?php
     }
 } else {
@@ -339,7 +286,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
                 <div class="word-tags">
                     <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> Official</span>
                     <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Extended</span>
-                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used</span> 
+                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used*</span> 
                 </div>
                 <div class="search-box">
                     <form action="<?= base_url('words') ?>" method="POST">
@@ -354,6 +301,7 @@ if (isset($pattern)) {
 <?php } ?>
                         <button type="submit" class="btn btn-primary"><?= $search_label ?></button>
                     </form>
+                    <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                 </div>
             </div>
             <div class="card">

@@ -33,13 +33,13 @@ class Bot extends BaseController
 
     private function playWordle($sol) {
         // carico tutte le parole già uscite e calcolo le statistiche di utilizzo delle lettere
-        $wordle = array_filter($this->words, fn($item) => $item['wordle'] !== null);
+        $wordle = array_filter($this->data['words'], fn($item) => $item['wordle'] !== null);
         $wordles = array_column($wordle,'word');
         $wordle_str = implode("",$wordles);
         $this->char_values = count_chars($wordle_str,1);
 
         // carico tutte le possibili parole (dizionario standard) e le ordino per probabilità
-        $official = array_filter($this->words, fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
+        $official = array_filter($this->data['words'], fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
         $off = array_column($official,'word');
         $words_sel = $this->create_list($off);
 
@@ -113,7 +113,7 @@ class Bot extends BaseController
                             // la parola non è nella lista UFFICIALE, la cerco nella lista estesa
                             // da cui sottraggo le parole già uscite e quelle della lista ufficiale
                             $ext = true;
-                            $words_ext_arr = array_filter($this->words, fn($item) => $item['ext'] == 1);
+                            $words_ext_arr = array_filter($this->data['words'], fn($item) => $item['ext'] == 1);
                             $words_ext = array_column($words_ext_arr,'word');
                             $words_sel = $this->create_list($words_ext);
                         }

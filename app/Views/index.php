@@ -57,13 +57,17 @@
 if (isset($res) && (count($res)!=0) && isset($sol)) {
     $colors = [["gray","⬜"],["yellow","🟨"],["green","🟩"]];
     $share = "🤖 ".count($res)."/6*\\n";
+    $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $aa = array();
+    for($i=0; $i<strlen($alphabet); $i++) {
+        $aa[substr($alphabet,$i,1)]=0;
+    }
     $sa = str_split($sol);
 ?>
                 <div class="wordle-grid">
 <?php
-?> 
     foreach ($res as $w) {
+?>
                     <div class="row">
 <?php
         $wa = str_split($w);
@@ -76,7 +80,7 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
                 if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
                     $aa[$wa[$i]] = 0;
             } else {
-                if (substr_count($sol,$wa[$i]) >= substr_count($word,$wa[$i])) { // YELLOW
+                if (substr_count($sol,$wa[$i]) >= substr_count($w,$wa[$i])) { // YELLOW
                     $col = 1;
                     if ($aa[$wa[$i]] != 2) 
                         $aa[$wa[$i]] = 1;
@@ -151,15 +155,24 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
                 </div>
 -->
 <?php
-}
-?>               
-                <p class="result-text">Played with word <b>CREEP</b></p>
-                
+    if ($res[count($res)-1] != $sol) {
+?>
+                <p class="result-text">Played with word <b><?= $sol ?></b> without success...</p>
+<?php
+    }
+?>              
                 <div class="actions">
-                    <button onclick="shareWhatsApp()" class="btn btn-whatsapp">
+                    <button onclick="shareWhatsApp('<?= $share ?>')" class="btn btn-whatsapp">
                         <i class="fa-solid fa-share-nodes"></i> share on WhatsApp
                     </button>
                 </div>
+<?php
+} else {
+?>
+                <p class="result-text">Give me a word to play with...</p>
+<?php
+}
+?>               
             </div>
 
             <div class="card new-game-card">

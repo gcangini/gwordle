@@ -47,9 +47,7 @@ function toggleMenu() {
 /**
  * Condivisione WhatsApp (Presa dal codice originale)
  */
-function shareWhatsApp() {
-    // Nota: i dati qui sono statici come esempio, in produzione andrebbero presi dinamicamente
-    const text = '🤖 3/6*\n\n⬜🟩⬜⬜🟨\n⬜🟩⬜🟩⬜\n🟩🟩🟩🟩🟩\n';
+function shareWhatsApp(text) {
     const url = "https://wa.me/?text=" + encodeURIComponent(text);
     window.open(url, "_blank");
 }

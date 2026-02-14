@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -23,7 +23,7 @@
         </div>
         
         <div class="header-center">
-            <h1>gWordle (offline)</h1>
+            <h1><img src="<?= base_url('img/favicon.svg') ?>" class="logo"> gWordle (offline)</h1>
         </div>
 
         <div class="header-right">
@@ -42,21 +42,10 @@
                 <div class="word-tags">
                     <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> Official</span>
                     <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Extended</span>
-                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used</span> 
+                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used*</span> 
                 </div>
                 <div class="search-box">
-                    <form action="<?= base_url('words') ?>" method="POST">
-<?php
-$search_label = "SEARCH";
-if (isset($pattern)) {
-    $search_label = "NEW SEARCH";
-?>
-                        pattern: <b><?= esc(strtoupper($pattern)) ?></b>
-<?php } else { ?>
-                        <input type="text" name="pattern" placeholder="RegExp Search..." required>
-<?php } ?>
-                        <button type="submit" class="btn btn-primary"><?= $search_label ?></button>
-                    </form>
+                    <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                 </div>
             </div>
             <div class="card">

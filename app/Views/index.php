@@ -290,17 +290,9 @@ if (isset($p_words) && (count($p_words) != 0)) {
                     <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used*</span> 
                 </div>
                 <div class="search-box">
-                    <form action="<?= base_url('words') ?>" method="POST">
-<?php
-$search_label = "SEARCH";
-if (isset($pattern)) {
-    $search_label = "NEW SEARCH";
-?>
-                        pattern: <b><?= esc(strtoupper($pattern)) ?></b>
-<?php } else { ?>
-                        <input type="text" name="pattern" placeholder="RegExp Search..." required>
-<?php } ?>
-                        <button type="submit" class="btn btn-primary"><?= $search_label ?></button>
+                    <form action="#">
+                        <input type="text" id="pattern" name="pattern" placeholder="RegExp Search..." required>
+                        <button type="button" class="btn btn-primary" onclick="search()">SEARCH</button>
                     </form>
                     <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                 </div>
@@ -331,9 +323,9 @@ if (isset($pattern)) {
 
     <script>
         const words = <?php echo json_encode($words); ?>;
-        console.table(words);
+        //console.table(words); //DEBUG
 
-        function printWords() {
+        function printWords(arr = null) {
             const wl = document.getElementById('word-list');
             const template = document.getElementById('word-template');
             const num = document.getElementById('word-num');
@@ -348,7 +340,9 @@ if (isset($pattern)) {
 
             let count = 0;
             let add = false;
-            words.forEach(item => {
+            if (!arr) 
+                arr = words;
+            arr.forEach(item => {
                 const clone = template.content.cloneNode(true);
     
                 // select word and meta tags
@@ -386,6 +380,23 @@ if (isset($pattern)) {
             num.innerHTML = count;
         }
         
+        function search() {
+            let p_el = document.getElementById('pattern')
+            if (p_el) {
+                let pattern = p_el.value;
+                //console.log(pattern); //DEBUG
+                const result = [];
+                words.forEach(item => {
+                    if (item.word.match(pattern.toUpperCase())) {
+                        result.push(item);
+                        //console.log("match: "+item.word); //DEBUG
+                    }
+                });
+                //console.table(result); //DEBUG
+                printWords(result);
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             // Initialize view
             printWords();

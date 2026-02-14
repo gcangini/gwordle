@@ -6,9 +6,10 @@ use App\Models\WordsModel;
 
 class Home extends BaseController
 {
-    public function getIndex() {
+    public function getIndex($view = 'game') {
         $words_model = model('WordsModel');
         $data['words'] = $words_model->orderBy('word ASC')->findAll();
+        $data['view'] = $view;
         return view('index',$data);
     }
 }

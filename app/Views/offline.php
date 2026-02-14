@@ -47,7 +47,7 @@
                 <div class="search-box">
                     <form action="#">
                         <input type="text" id="pattern" name="pattern" placeholder="RegExp Search..." required>
-                        <button type="button" class="btn btn-primary" onclick="search()">SEARCH</button>
+                        <button type="button" class="btn btn-primary" onclick="printWords()">SEARCH</button>
                     </form>
                     <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                 </div>
@@ -79,8 +79,28 @@
     <script>
         const words = <?php echo json_encode($words); ?>;
         //console.table(words); //DEBUG
+        
+        function search() {
+            let p_el = document.getElementById('pattern')
+            if (p_el) {
+                let pattern = p_el.value;
+                if (pattern) {
+                    //console.log(pattern); //DEBUG
+                    const result = [];
+                    words.forEach(item => {
+                        if (item.word.match(pattern.toUpperCase())) {
+                            result.push(item);
+                            //console.log("match: "+item.word); //DEBUG
+                        }
+                    });
+                    //console.table(result); //DEBUG
+                    return result;
+                }
+            }
+            return words;
+        }
 
-        function printWords(arr = null) {
+        function printWords() {
             const wl = document.getElementById('word-list');
             const template = document.getElementById('word-template');
             const num = document.getElementById('word-num');
@@ -95,8 +115,7 @@
 
             let count = 0;
             let add = false;
-            if (!arr) 
-                arr = words;
+            let arr = search();
             arr.forEach(item => {
                 const clone = template.content.cloneNode(true);
     
@@ -133,23 +152,6 @@
             });
             wl.appendChild(fragment);
             num.innerHTML = count;
-        }
-        
-        function search() {
-            let p_el = document.getElementById('pattern')
-            if (p_el) {
-                let pattern = p_el.value;
-                //console.log(pattern); //DEBUG
-                const result = [];
-                words.forEach(item => {
-                    if (item.word.match(pattern.toUpperCase())) {
-                        result.push(item);
-                        //console.log("match: "+item.word); //DEBUG
-                    }
-                });
-                //console.table(result); //DEBUG
-                printWords(result);
-            }
         }
 
         document.addEventListener("DOMContentLoaded", () => {

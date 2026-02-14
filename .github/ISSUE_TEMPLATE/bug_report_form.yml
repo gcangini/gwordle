@@ -10,6 +10,19 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: What kind of bug did you encounter?
+      options:
+        - critical/fatal error
+        - minor error for specific use case
+        - graphic problem
+        - other
+      default: 0
+    validations:
+      required: true
   - type: input
     id: contact
     attributes:

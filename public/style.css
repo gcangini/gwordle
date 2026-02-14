@@ -41,6 +41,10 @@ a {
     color: var(--logo-blue);
 }
 
+.logo {
+    width: 48px;
+    vertical-align: middle;
+}
 /* --- HEADER --- */
 .app-header {
     position: fixed;

@@ -31,10 +31,19 @@ class FiveForks extends BaseController
                 $c = 0;
                 while (!$end) {
                     if (preg_match($pattern,$rows[$i],$matches)) {
-                        $new = array("word" => $matches[1], "wordle" => $matches[2], "day" => "20".$matches[5]."-".$matches[3]."-".$matches[4]);
+                        $new = [    "word"      => $matches[1], 
+                                    "wordle"    => $matches[2], 
+                                    "day"       => "20".$matches[5]."-".$matches[3]."-".$matches[4],
+                                    "ext"       => 0
+                        ];
                         if ($matches[2] == $last['wordle']) {
                             $end = true;
                         } else {
+                            // NEW WORD found -> insert on db
+                            $exist_word = $words_model->where("word",$matches[1])->first();
+                            if ($exist_word && is_null($exist_word['wordle']) { // update
+                                $new['id'] = $exist_word['id'];
+                            }
                             $words_model->save($new);
                             $c++;
                         }

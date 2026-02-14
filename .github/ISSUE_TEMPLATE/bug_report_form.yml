@@ -1,8 +1,7 @@
-name: "Bug Report (form)"
+name: "Bug Report"
 description: "File a bug report."
 title: "[Bug]: "
 labels: ["bug"]
-projects: ["Shoplist"]
 assignees:
   - gcangini
 body:
@@ -13,14 +12,13 @@ body:
   - type: dropdown
     id: type
     attributes:
-      label: Type
+      label: Type of bug
       description: What kind of bug did you encounter?
       options:
         - critical/fatal error
         - minor error for specific use case
         - graphic problem
         - other
-      default: 0
     validations:
       required: true
   - type: input
@@ -46,11 +44,11 @@ body:
       label: Device
       description: What device are you using?
       options:
-        - smartphone
+        - iPhone
+        - smartphone Android
         - PC
         - tablet
         - other
-      default: 0
     validations:
       required: true
   - type: dropdown

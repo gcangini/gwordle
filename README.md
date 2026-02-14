@@ -1,6 +1,4 @@
-# gwordle
-Wordle BOT &amp; helper
-
+# gWordle
 
 <!-- Template from https://github.com/othneildrew/Best-README-Template -->
 <a id="readme-top"></a>
@@ -16,13 +14,11 @@ Wordle BOT &amp; helper
 <br />
 <div align="center">
   <a href="https://github.com/gcangini/gwordle">
-    <img src="https://gwordle.gigini.it/img/favicon.svg" alt="Logo" width="80" height="80">
+    <img src="https://gwordle.gigini.it/img/favicon.svg" alt="Logo" width="160" height="160">
   </a>
-
-<h3 align="center">gWordle</h3>
-
+  <h2 align="center">gWordle</h2>
   <p align="center">
-    Wordle BOT &amp; helper
+    Wordle BOT &amp; Helper
     <br />
     <br />
     <a href="https://github.com/gcangini/gwordle/issues/new?template=bug_report_form.yml">Report Bug</a>
@@ -173,6 +169,8 @@ Distributed under the <a href="https://creativecommons.org/publicdomain/zero/1.0
 Gianlica Cangini - gcangini@hotmail.com
 
 Project Link: [https://github.com/gcangini/gwordle](https://github.com/gcangni/gwordle)
+
+Online web app: [https://gwordle.gigini.it](https://gwordle.gigini.it)
 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 

@@ -19,6 +19,7 @@ body:
         - minor error for specific use case
         - graphic problem
         - other
+      default: null
     validations:
       required: true
   - type: input
@@ -54,7 +55,8 @@ body:
   - type: dropdown
     id: browsers
     attributes:
-      label: What browsers are you seeing the problem on?
+      label: Browser
+      description: What browsers are you seeing the problem on?
       multiple: true
       options:
         - Firefox

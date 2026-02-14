@@ -16,10 +16,10 @@ body:
       description: What kind of bug did you encounter?
       multiple: true
       options:
-        - critical/fatal error
-        - minor error for specific use case
-        - graphic problem
-        - other
+        - "critical/fatal error"
+        - "minor error for specific use case"
+        - "graphic problem"
+        - "other"
     validations:
       required: true
   - type: input
@@ -46,11 +46,12 @@ body:
       description: What device are you using?
       multiple: true
       options:
-        - iPhone
-        - smartphone Android
-        - PC
-        - tablet
-        - other
+        - ""
+        - "iPhone"
+        - "smartphone Android"
+        - "PC"
+        - "tablet"
+        - "other"
     validations:
       required: true
   - type: dropdown
@@ -60,10 +61,10 @@ body:
       description: What browsers are you seeing the problem on?
       multiple: true
       options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-        - other
+        - "Firefox"
+        - "Chrome"
+        - "Safari"
+        - "Microsoft Edge"
+        - "other"
     validations:
       required: true

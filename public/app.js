@@ -99,46 +99,48 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// bottone per l'installazione
-let deferredPrompt;
-const installBtn = document.getElementById('btn-install');
-installBtn.style.display = 'none';
-
 // Utility function to check if it is on mobile
 function isMobile() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
 }
+// bottone per l'installazione
+let deferredPrompt;
+const installBtn = document.getElementById('btn-install');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent default browser's mini-infobar
-    e.preventDefault();
-    // Save the event (used after)
-    deferredPrompt = e;
-    // Show the install button ON MOBILE only
-    if (isMobile()) {
-        console.log("Mobile device: display install button");
-        installBtn.style.display = 'block';
-    } else {
-        console.log("Desktop device: hide install button");
-    }
-});
-
-installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-        // Show native installation prompt
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User has ${outcome} the install`);
-        deferredPrompt = null;
-        installBtn.style.display = 'none';
-    }
-});
-
-// after install
-window.addEventListener('appinstalled', (evt) => {
-    console.log('PWA successfully installed');
-    // Install button always hidden
+if (installBtn) {
     installBtn.style.display = 'none';
-    deferredPrompt = null;
-});
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent default browser's mini-infobar
+        e.preventDefault();
+        // Save the event (used after)
+        deferredPrompt = e;
+        // Show the install button ON MOBILE only
+        if (isMobile()) {
+            console.log("Mobile device: display install button");
+            installBtn.style.display = 'block';
+        } else {
+            console.log("Desktop device: hide install button");
+        }
+    });
+
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            // Show native installation prompt
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User has ${outcome} the install`);
+            deferredPrompt = null;
+            installBtn.style.display = 'none';
+        }
+    });
+
+    // after install
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('PWA successfully installed');
+        // Install button always hidden
+        installBtn.style.display = 'none';
+        deferredPrompt = null;
+    });
+}

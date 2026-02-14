@@ -14,12 +14,12 @@ body:
     attributes:
       label: Type of bug
       description: What kind of bug did you encounter?
+      multiple: true
       options:
         - critical/fatal error
         - minor error for specific use case
         - graphic problem
         - other
-      default: null
     validations:
       required: true
   - type: input
@@ -44,6 +44,7 @@ body:
     attributes:
       label: Device
       description: What device are you using?
+      multiple: true
       options:
         - iPhone
         - smartphone Android

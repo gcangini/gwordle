@@ -16,7 +16,7 @@
   <a href="https://github.com/gcangini/gwordle">
     <img src="https://gwordle.gigini.it/img/favicon.svg" alt="Logo" width="160" height="160">
   </a>
-  <h2 align="center">gWordle</h2>
+  <h3 align="center">gWordle</h3>
   <p align="center">
     Wordle BOT &amp; Helper
     <br />

@@ -23,7 +23,7 @@
         </div>
         
         <div class="header-center">
-            <h1><img src="<?= base_url('img/favicon.svg') ?>" class="logo"> gWordle (offline)</h1>
+            <h1><img src="<?= base_url('img/favicon.svg') ?>" class="logo"> gWordle</h1>
         </div>
 
         <div class="header-right">
@@ -38,7 +38,7 @@
         <section id="view-error" class="active-view">
             <div class="card">
                <h2>Whoops !!</h2>
-                It seems there's an <i>ERROR</i>, sorry for that... try again later.
+                There seems to be an error, sorry for that... please try again later.
             </div>
         </section>
         <!-- /ERROR PAGE -->

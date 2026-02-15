@@ -56,7 +56,11 @@
 <?php
 if (isset($res) && (count($res)!=0) && isset($sol)) {
     $colors = [["gray","⬜"],["yellow","🟨"],["green","🟩"]];
-    $share = "🤖 ".count($res)."/6*\\n";
+    // check if last try is the solution
+    // res array starts from 1, that's why last one is count($res)
+    $success = ($res[count($res)] == $sol);
+    $num_try = $success ? count($res) : "X";
+    $share = "🤖 ".$num_try."/6*\\n";
     $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $aa = array();
     for($i=0; $i<strlen($alphabet); $i++) {
@@ -131,9 +135,9 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
 ?>
                 </div>
 <?php
-    if ($res[count($res)] != $sol) { // TODO: perchè $res[count($res)] per avere l'ultima parola, anzichè $res[count($res)-1] ??
+    if (!$success) {
 ?>
-                <p class="result-text">Played with word <b><?= $sol ?></b> without success...</p>
+                <p class="result-text">Played with word <b><?= $sol ?></b> without success...</p><br>
 <?php
     }
 ?>              
@@ -215,7 +219,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
             </div>
 <?php 
     if (isset($res) && (count($res) != 0)) {
-        // Filtra gli elementi per dividere l'array in 3
+        // split the array of all words into the three main lists
         $official = array_filter($res, fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
         $ext = array_filter($res, fn($item) => $item['ext'] == 1);
         $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);

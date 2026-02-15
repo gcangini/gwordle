@@ -28,14 +28,6 @@ class Helper extends BaseController
                 $this->data['colors'][] = request()->getPost('c'.$i);
             }
         }
-        /*
-        while (request()->getPost('w'.$i) && $i<7) {
-            if (null === request()->getPost('del'.$i)) {
-                $this->data['p_words'][] = request()->getPost('w'.$i);
-                $this->data['colors'][] = request()->getPost('c'.$i);
-            }
-            $i++;
-        }*/
 
         // add new word ?
         $add = request()->getPost('add');

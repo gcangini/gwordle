@@ -41,7 +41,7 @@ class FiveForks extends BaseController
                         } else {
                             // NEW WORD found -> insert on db
                             $exist_word = $words_model->where("word",$matches[1])->first();
-                            if ($exist_word && is_null($exist_word['wordle']) { // update
+                            if ($exist_word && is_null($exist_word['wordle'])) { // update
                                 $new['id'] = $exist_word['id'];
                             }
                             $words_model->save($new);

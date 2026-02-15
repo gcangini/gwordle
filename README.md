@@ -20,6 +20,8 @@
   <p align="center">
     Wordle BOT &amp; Helper
     <br />
+    <h4>
+    <h4><a href="https://gwordle.gigini.it" target="_blank">https://gwordle.gigini.it</a></h4>
     <br />
     <a href="https://github.com/gcangini/gwordle/issues/new?template=bug_report_form.yml">Report Bug</a>
     &middot;
@@ -59,7 +61,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Play Wordle against the bot, read words list or use gWordle Helper to halp you solve yout daily Wordle attempt.
+Play Wordle against the 🤖 BOT, read words list or use gWordle Helper to help you solve your daily Wordle attempt.
 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 
@@ -74,13 +76,14 @@ Play Wordle against the bot, read words list or use gWordle Helper to halp you s
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these example steps.<br>
+(These are general guidelines that require some basic knowledge of the Linux system, the MySQL database, and the PHP CodeIgniter framework)
 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 
 ### Prerequisites
 
-A LAMP stack (Linux-Apache-Mysql-PHP).
+A LAMP stack (Linux-Apache-MySQL-PHP).
 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 
@@ -95,25 +98,15 @@ A LAMP stack (Linux-Apache-Mysql-PHP).
    ```
 2. create and populate database (with SQL scripts)
 3. configure baseURL and database in .env file
-   ```sh
-   vim .env
-   ```
-4. set $autoRoute = true; in Routing.php
-   ```sh
-   vim app/Config/Routing.php
-   ```
-5. comment home route in Routes.php
-   ```sh
-   vim app/Config/Routes.php
-   ```
+4. set $autoRoute = true; in app/Config/Routing.php
+5. delete or comment out home route in app/Config/Routes.php
 6. remove app files managed by git repository
    ```sh
    rm LICENSE
    rm README.md
-   rm public/robots.txt
    rm app/Controllers/Home.php
    ```
-7. Clone the repo (main branch)
+7. Clone the repo (main branch) in your newly created CodeIgniter app (gwordle directory)
    ```sh
    git clone https://github.com/gcangini/gwordle
    ```
@@ -123,7 +116,8 @@ A LAMP stack (Linux-Apache-Mysql-PHP).
    git remote -v # confirm the changes
    ```
 9. configure sitemap.xml with your own URL
-10. Enjoy :-)
+10. setup the daily update of past used words with a call to <your URL>/five-forks (i.e. with crontab wget)
+11. Enjoy :-)
 
 <p align="right">(<a href="#readme-top">🔼 top</a>)</p>
 
@@ -140,8 +134,8 @@ See the [open issues](https://github.com/gcangini/gwordle/issues) for a full lis
 <!-- CONTRIBUTING -->
 ## Contributing
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. Y
-ou can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this better, please fork the repo and create a pull request. 
+You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project

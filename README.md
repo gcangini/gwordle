@@ -116,7 +116,7 @@ A LAMP stack (Linux-Apache-MySQL-PHP).
    git remote -v # confirm the changes
    ```
 9. configure sitemap.xml with your own URL
-10. setup the daily update of past used words with a call to <your URL>/five-forks (i.e. with crontab wget)
+10. setup the daily update of past used words with a call to /five-forks (i.e. with crontab wget)
 11. Enjoy :-)
 
 <p align="right">(<a href="#readme-top">🔼 top</a>)</p>

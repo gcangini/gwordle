@@ -1,7 +1,7 @@
 const CACHE_NAME = 'offline-cache-v1';
 const OFFLINE_URL = '/offline';
 
-// 1. In fase di installazione, mettiamo in cache la pagina offline
+// 1. during install phase: cache on the phone browser the offline page
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
@@ -10,13 +10,13 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// 2. Gestione delle richieste
+// 2. serve request
 self.addEventListener('fetch', (event) => {
-    // Gestiamo solo le navigazioni (pagine HTML)
+    // only HTML pages navigation
     if (event.request.mode === 'navigate') {
         event.respondWith(
             fetch(event.request).catch(() => {
-                // Se il fetch fallisce (offline), restituisci la pagina in cache
+                // if fetch fails (offline), return the cached offile page
                 return caches.match(OFFLINE_URL);
             })
         );

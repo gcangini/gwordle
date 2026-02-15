@@ -16,6 +16,9 @@ class FiveForks extends BaseController
         try {
             $ch = curl_init($url);
 //          curl_setopt($ch, CURLOPT_HEADER, 0);
+            // this USERAGENT is useful to bypass 
+            // This user-agent is useful for bypassing any blocks by Cloudflare
+            // (thanks to Jeb from Five-forks who configured an allow rule for ‘gcangini’).
             curl_setopt($ch, CURLOPT_USERAGENT, "gcangini");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $html_str = curl_exec($ch);

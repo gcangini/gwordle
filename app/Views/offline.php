@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#234C80">
     <title>gWordle</title>
-    <script defer src="https://www.gigini.it/fa/js/fontawesome.js"></script>
-    <script defer src="https://www.gigini.it/fa/js/solid.js"></script>
+    <script defer src="<?= base_url('fa/fontawesome.js') ?>"></script>
+    <script defer src="<?= base_url('fa/solid.js') ?>"></script>
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
     <link rel="manifest" href="<?= base_url('gwordle.webmanifest') ?>"> 
     <link rel="icon" type="image/png" href="<?= base_url('img/favicon-96x96.png') ?>" sizes="96x96" />
@@ -37,7 +37,7 @@
         <!-- WORDS LIST PAGE -->
         <section id="view-lists" class="active-view">
             <div class="card">
-               It seems that you're <i>OFFLINE</i> but you can still browsw words list<br><br>
+               It seems that you're <i>OFFLINE</i> but you can still browse words list<br><br>
                 Select words:
                 <div class="word-tags">
                     <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> Official</span>

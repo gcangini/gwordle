@@ -1,0 +1,20 @@
+# --- 1. SEGRETI E CONFIGURAZIONI (FONDAMENTALE) ---
+.env
+/app/Config/Development.php
+
+# --- 2. DIPENDENZE (Il grosso del framework) ---
+/vendor/
+/composer.lock
+
+# --- 3. FILE GENERATI DAL SERVER ---
+/writable/*
+!/writable/index.html
+!/writable/.htaccess
+
+# --- 4. FILE DI SISTEMA E IDE ---
+.phpunit.result.cache
+/userguide*
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store

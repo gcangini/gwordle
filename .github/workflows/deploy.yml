@@ -1,0 +1,37 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main  # Lo script parte ogni volta che fai push su main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        with:          
+          REMOTE_HOST: ${{ secrets.SERVER_IP }}
+          REMOTE_USER: ${{ secrets.SERVER_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --exclude=.git" # do not "delete"
+          # ARGS: "-rlgoDzvc -i --delete" # Sincronizza i file e cancella quelli eliminati
+          TARGET: "/var/www/gwordle/" # La cartella del tuo sito sul Droplet
+          EXCLUDE: "/.github/, /.git/" # Cartelle da non caricare
+
+      - name: Post-deployment fix permissions
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/gwordle/
+            composer install --no-dev --optimize-autoloader
+            php spark optimize
+            sudo chown -R gcangini:www-data .
+            sudo chmod -R 775 writable

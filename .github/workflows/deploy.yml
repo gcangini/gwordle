@@ -10,7 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env: # Se il branch è main, usa la produzione, altrimenti (dev) usa la cartella dev
-      TARGET_DIR: ${{ github.ref == 'refs/heads/main' && '/var/www/gwordle/' || '/var/www/html/gw-dev' }}
+      TARGET_DIR: ${{ github.ref == 'refs/heads/main' && '/var/www/gwordle/' || '/var/www/gw-dev/' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

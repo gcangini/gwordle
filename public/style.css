@@ -363,6 +363,10 @@ input[type="text"]:focus {
     min-width: 0;
 }
 
+.vertical-list span {
+    cursor: pointer;
+}
+
 /* --- UTILITIES --- */
 .hidden-view {
     display: none;

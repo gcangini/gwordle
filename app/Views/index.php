@@ -176,8 +176,8 @@ if (!isset($p_words) || (count($p_words) != 6)) {
                 <div class="input-group">
                     <label>Add word:</label>
                     <div class="row-input">
-                        <input type="text" name="new"  minlength="5" maxlength="5" placeholder="Es. SLATE">
-                        <button type="submit" name="add" value="1" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
+                        <input type="text" name="new" id="add-word" minlength="5" maxlength="5" placeholder="Es. SLATE">
+                        <button type="submit" name="add" value="1" id="add-btn" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
                     </div>
                 </div>
                 <br>
@@ -223,38 +223,41 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $official = array_filter($res, fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
         $ext = array_filter($res, fn($item) => $item['ext'] == 1);
         $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);
+        $co = count($official);
+        $ce = count($ext);
+        $cw = count($wordle);
 ?>
             
             <div class="card">
                 <div class="word-tags">
                     <div class="vertical-list">
-                        <span class="official">List (<?= count($official) ?>)</span>
+                        <span class="official">List (<?= $co ?>)</span>
 <?php
         foreach ($official as $w_o) {
 ?>
-                        <span><?= $w_o['word'] ?></span>
+                        <span onclick="addWord('<?= $w_o['word'] ?>')"><?= $w_o['word'] ?></span>
 <?php
         }
 ?>
                     </div>
 
                     <div class="vertical-list">
-                        <span class="ext">Ext (<?= count($ext) ?>)</span>
+                        <span class="ext">Ext (<?= $ce ?>)</span>
 <?php
         foreach ($ext as $w_e) {
 ?>
-                        <span><?= $w_e['word'] ?></span>
+                        <span onclick="addWord('<?= $w_e['word'] ?>')"><?= $w_e['word'] ?></span>
 <?php
         }
 ?>
                     </div>
 
                     <div class="vertical-list">
-                        <span class="wordle">Past* (<?= count($wordle) ?>)</span>
+                        <span class="wordle">Past* (<?= $cw ?>)</span>
 <?php
         foreach ($wordle as $w_w) {
 ?>
-                        <span><?= $w_w['word'] ?></span>
+                        <span onclick="addWord('<?= $w_w['word'] ?>')"><?= $w_w['word'] ?></span>
 <?php
         }
 ?>
@@ -262,6 +265,12 @@ if (isset($p_words) && (count($p_words) != 0)) {
                 </div>
                 <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
             </div>
+<?php
+    } elseif (isset($res) && (count($res) == 0)) {
+?>
+        <div class="card">
+            Sorry... no words found!!
+        </div>
 <?php
     }
 } else {
@@ -395,6 +404,13 @@ if (isset($p_words) && (count($p_words) != 0)) {
             });
             wl.appendChild(fragment);
             num.innerHTML = count;
+        }
+
+        function addWord(word) {
+            const input = document.getElementById('add-word');
+            const button = document.getElementById('add-btn');
+            input.value = word;
+            button.click();
         }
 
         document.addEventListener("DOMContentLoaded", () => {

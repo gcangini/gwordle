@@ -289,13 +289,13 @@ input[type="text"]:focus {
 }
 
 .word-tags {
-    display: flex;
-    justify-content: space-around;
-}
+    /*   display: flex;
+    justify-content: space-around;*/
 
-.vertical-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .word-tags span {
@@ -315,21 +315,6 @@ input[type="text"]:focus {
 }
 
 .word-tags span.wordle {
-    background: var(--logo-orange);
-    color: #eee;
-}
-
-h4.official {
-    background: var(--logo-blue);
-    color: #eee;
-}
-
-h4.ext {
-    background: var(--bg-color);
-    font-style: italic;
-}
-
-h4.wordle {
     background: var(--logo-orange);
     color: #eee;
 }
@@ -370,6 +355,12 @@ h4.wordle {
 
 .list-item .official {
     color: var(--logo-blue);
+}
+
+.vertical-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 
 /* --- UTILITIES --- */

@@ -228,7 +228,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
             <div class="card">
                 <div class="word-tags">
                     <div class="vertical-list">
-                        <span class="official">Official (<?= count($official) ?>)</span>
+                        <span class="official">List (<?= count($official) ?>)</span>
 <?php
         foreach ($official as $w_o) {
 ?>
@@ -239,7 +239,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
                     </div>
 
                     <div class="vertical-list">
-                        <span class="ext">Extended (<?= count($ext) ?>)</span>
+                        <span class="ext">Ext (<?= count($ext) ?>)</span>
 <?php
         foreach ($ext as $w_e) {
 ?>
@@ -250,7 +250,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
                     </div>
 
                     <div class="vertical-list">
-                        <span class="wordle">Past used* (<?= count($wordle) ?>)</span>
+                        <span class="wordle">Past* (<?= count($wordle) ?>)</span>
 <?php
         foreach ($wordle as $w_w) {
 ?>

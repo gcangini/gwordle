@@ -45,6 +45,7 @@ a {
     width: 48px;
     vertical-align: middle;
 }
+
 /* --- HEADER --- */
 .app-header {
     position: fixed;
@@ -287,14 +288,25 @@ input[type="text"]:focus {
     color: red;
 }
 
+.word-tags {
+    display: flex;
+    justify-content: space-around;
+}
+
+.vertical-list {
+    display: flex;
+    flex-direction: column;
+}
+
 .word-tags span {
     display: inline-block;
     background: #eee;
     padding: 5px 10px;
     border-radius: 4px;
-    margin: 3px;
+    margin: 5px;
     font-family: monospace;
     font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .word-tags span.official {

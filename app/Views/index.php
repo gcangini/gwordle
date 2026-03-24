@@ -224,10 +224,11 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $ext = array_filter($res, fn($item) => $item['ext'] == 1);
         $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);
 ?>
-                <div class="results-area">
-                    <div class="card">
-                        <h4 class="official">Official (<?= count($official) ?>)</h4>
-                        <div class="word-tags">
+            
+            <div class="card">
+                <div class="word-tags">
+                    <div class="vertical-list">
+                        <span class="official">Official (<?= count($official) ?>)</span>
 <?php
         foreach ($official as $w_o) {
 ?>
@@ -235,14 +236,10 @@ if (isset($p_words) && (count($p_words) != 0)) {
 <?php
         }
 ?>
-                        </div>
                     </div>
-                </div>
 
-                <div class="results-area">
-                    <div class="card">
-                        <h4 class="ext">Extended (<?= count($ext) ?>)</h4>
-                        <div class="word-tags">
+                    <div class="vertical-list">
+                        <span class="ext">Extended (<?= count($ext) ?>)</span>
 <?php
         foreach ($ext as $w_e) {
 ?>
@@ -250,14 +247,10 @@ if (isset($p_words) && (count($p_words) != 0)) {
 <?php
         }
 ?>
-                        </div>
                     </div>
-                </div>
 
-                <div class="results-area">
-                    <div class="card">
-                        <h4 class="wordle">Past used* (<?= count($wordle) ?>)</h4>
-                        <div class="word-tags">
+                    <div class="vertical-list">
+                        <span class="wordle">Past used* (<?= count($wordle) ?>)</span>
 <?php
         foreach ($wordle as $w_w) {
 ?>
@@ -265,10 +258,10 @@ if (isset($p_words) && (count($p_words) != 0)) {
 <?php
         }
 ?>
-                        </div>
-                        <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                     </div>
                 </div>
+                <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
+            </div>
 <?php
     }
 } else {
@@ -293,6 +286,7 @@ if (isset($p_words) && (count($p_words) != 0)) {
                     <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Extended</span>
                     <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used*</span> 
                 </div>
+                <br>
                 <div class="search-box">
                     <form action="#">
                         <input type="text" id="pattern" name="pattern" placeholder="RegExp Search..." required>

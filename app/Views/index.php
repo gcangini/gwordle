@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#234C80">
     <title>gWordle</title>
+    <!--
     <script defer src="<?= base_url('fa/fontawesome.js') ?>"></script>
     <script defer src="<?= base_url('fa/solid.js') ?>"></script>
+    -->
+    <link rel="stylesheet" href="<?= base_url('fa/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
     <link rel="manifest" href="<?= base_url('gwordle.webmanifest') ?>"> 
     <link rel="icon" type="image/png" href="<?= base_url('img/favicon-96x96.png') ?>" sizes="96x96" />

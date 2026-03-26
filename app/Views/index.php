@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#234C80">
     <title>gWordle</title>
-    <!--
-    <script defer src="<?= base_url('fa/fontawesome.js') ?>"></script>
-    <script defer src="<?= base_url('fa/solid.js') ?>"></script>
-    -->
     <link rel="stylesheet" href="<?= base_url('fa/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
     <link rel="manifest" href="<?= base_url('gwordle.webmanifest') ?>"> 
@@ -65,70 +61,18 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
     $success = ($res[count($res)] == $sol);
     $num_try = $success ? count($res) : "X";
     $share = "🤖 ".$num_try."/6*\\n";
-    $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    $aa = array();
-    for($i=0; $i<strlen($alphabet); $i++) {
-        $aa[substr($alphabet,$i,1)]=0;
-    }
-    $sa = str_split($sol);
 ?>
                 <div class="wordle-grid">
 <?php
-    foreach ($res as $w) {
+    foreach ($res as $k => $w) {
 ?>
                     <div class="row">
 <?php
-        $wa = str_split($w);
         for ($i=0; $i<5; $i++) {
-            if ($wa[$i] == $sa[$i]) { // GREEN
-                $col = 2;
-                $aa[$wa[$i]] = 2;
-            } elseif (!in_array($wa[$i], $sa)) { // GRAY
-                $col = 0;
-                if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
-                    $aa[$wa[$i]] = 0;
-            } else {
-                if (substr_count($sol,$wa[$i]) >= substr_count($w,$wa[$i])) { // YELLOW
-                    $col = 1;
-                    if ($aa[$wa[$i]] != 2) 
-                        $aa[$wa[$i]] = 1;
-                } else {
-                    $tot = 0;
-                    $greens = 0;
-                    for ($j=0; $j<5; $j++) {
-                        if ($sa[$j] == $wa[$i]) {
-                            $tot = $tot+1;
-                            if ($sa[$j] == $wa[$j]) {
-                                $greens = $greens+1;
-                            }
-                        }
-                    }
-                    $yellows = $tot-$greens;
-                    if ($yellows == 0) { // GRAY
-                        $col = 0;
-                        if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
-                            $aa[$wa[$i]] = 0;
-                    } else {
-                        for ($j=0; $j<$i; $j++) {
-                            if (($wa[$j] == $wa[$i]) && ($wa[$j] != $sa[$j])) {
-                                $yellows = $yellows-1;
-                            }
-                        }
-                        if ($yellows <= 0) { // GRAY
-                            $col = 0;
-                            if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
-                                $aa[$wa[$i]] = 0;
-                        } else { // YELLOW
-                            $col = 1;
-                            if ($aa[$wa[$i]] != 2)
-                                $aa[$wa[$i]] = 1;
-                        }
-                    }
-                }
-            }
-            $share .= $colors[$col][1];
+            $share .= $colors[$cols[$k][$i]][1];
 ?>
-                        <div class="tile <?= $colors[$col][0] ?>"><?= $wa[$i] ?></div>
+            
+                        <div class="tile <?= $colors[$cols[$k][$i]][0] ?>"><?= $w[$i] ?></div>
 <?php
         }
         $share .= "\\n";
@@ -153,7 +97,7 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
 <?php
 } else {
 ?>
-                <p class="result-text">Give me a word to play with...</p>
+                <p class="result-text">Give me a word to play with!</p>
 <?php
 }
 ?>               
@@ -162,7 +106,7 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
             <div class="card new-game-card">
                 <h3>New game</h3>
                 <form action="<?= base_url('bot') ?>" method="POST" class="inline-form">
-                    <input type="text" name="word" minlength="5" maxlength="5" placeholder="Insert new word..." required>
+                    <input type="text" name="word" minlength="5" maxlength="5" placeholder="New word..." required>
                     <button type="submit" class="btn btn-primary">PLAY</button>
                 </form>
             </div>

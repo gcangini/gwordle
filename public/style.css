@@ -314,6 +314,11 @@ input[type="text"]:focus {
     color: #eee;
 }
 
+.word-tags span.ext {
+    background: #666;
+    color: #eee;
+}
+
 .word-tags span.wordle {
     background: var(--logo-orange);
     color: #eee;

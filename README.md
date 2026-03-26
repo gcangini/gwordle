@@ -91,19 +91,18 @@ A LAMP stack (Linux-Apache-MySQL-PHP).
 
 ### Installation
 
-1. create app skeleton with CodeIgniter
-   ```sh
-   composer create-project codeigniter4/appstarter gwordle
-   cd gwordle
-   chmod -R ug+w writable
-   cp env .env
-   ```
-2. create and populate database (with SQL scripts)
-3. configure baseURL and database in .env file
-4. Clone the repo (main branch) in your newly created CodeIgniter app (gwordle directory)
+1. Clone the repo (main branch)
    ```sh
    git clone https://github.com/gcangini/gwordle
    ```
+2. add CodeIgnitier4 framework missing files
+   ```sh
+   cd gwordle
+   composer install
+   chmod -R ug+w writable
+   ```
+3. create and populate database (with SQL scripts)
+4. create .env file to set app.baseURL and database connection parameters
 5. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin https://github.com/<YOUR_USER>/<YOUR_PROJECT>

@@ -23,7 +23,7 @@
         </div>
         
         <div class="header-center">
-            <h1><img src="<?= base_url('img/favicon.svg') ?>" class="logo"> gWordle - DEV</h1>
+            <h1><img src="<?= base_url('img/favicon.svg') ?>" class="logo"> gWordle</h1>
         </div>
 
         <div class="header-right">

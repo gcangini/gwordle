@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#234C80">
     <title>gWordle</title>
-    <script defer src="<?= base_url('fa/fontawesome.js') ?>"></script>
-    <script defer src="<?= base_url('fa/solid.js') ?>"></script>
+    <link rel="stylesheet" href="<?= base_url('fa/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
     <link rel="manifest" href="<?= base_url('gwordle.webmanifest') ?>"> 
     <link rel="icon" type="image/png" href="<?= base_url('img/favicon-96x96.png') ?>" sizes="96x96" />
@@ -54,77 +54,27 @@
             <div class="card">
                 <h2><i class="fa-solid fa-robot"></i> BOT play</h2>
 <?php
+$colors = ["gray","yellow","green"];
+$squares = ["⬜","🟨","🟩"];
+
 if (isset($res) && (count($res)!=0) && isset($sol)) {
-    $colors = [["gray","⬜"],["yellow","🟨"],["green","🟩"]];
     // check if last try is the solution
     // res array starts from 1, that's why last one is count($res)
     $success = ($res[count($res)] == $sol);
     $num_try = $success ? count($res) : "X";
     $share = "🤖 ".$num_try."/6*\\n";
-    $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    $aa = array();
-    for($i=0; $i<strlen($alphabet); $i++) {
-        $aa[substr($alphabet,$i,1)]=0;
-    }
-    $sa = str_split($sol);
 ?>
                 <div class="wordle-grid">
 <?php
-    foreach ($res as $w) {
+    foreach ($res as $k => $w) {
 ?>
                     <div class="row">
 <?php
-        $wa = str_split($w);
         for ($i=0; $i<5; $i++) {
-            if ($wa[$i] == $sa[$i]) { // GREEN
-                $col = 2;
-                $aa[$wa[$i]] = 2;
-            } elseif (!in_array($wa[$i], $sa)) { // GRAY
-                $col = 0;
-                if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
-                    $aa[$wa[$i]] = 0;
-            } else {
-                if (substr_count($sol,$wa[$i]) >= substr_count($w,$wa[$i])) { // YELLOW
-                    $col = 1;
-                    if ($aa[$wa[$i]] != 2) 
-                        $aa[$wa[$i]] = 1;
-                } else {
-                    $tot = 0;
-                    $greens = 0;
-                    for ($j=0; $j<5; $j++) {
-                        if ($sa[$j] == $wa[$i]) {
-                            $tot = $tot+1;
-                            if ($sa[$j] == $wa[$j]) {
-                                $greens = $greens+1;
-                            }
-                        }
-                    }
-                    $yellows = $tot-$greens;
-                    if ($yellows == 0) { // GRAY
-                        $col = 0;
-                        if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
-                            $aa[$wa[$i]] = 0;
-                    } else {
-                        for ($j=0; $j<$i; $j++) {
-                            if (($wa[$j] == $wa[$i]) && ($wa[$j] != $sa[$j])) {
-                                $yellows = $yellows-1;
-                            }
-                        }
-                        if ($yellows <= 0) { // GRAY
-                            $col = 0;
-                            if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
-                                $aa[$wa[$i]] = 0;
-                        } else { // YELLOW
-                            $col = 1;
-                            if ($aa[$wa[$i]] != 2)
-                                $aa[$wa[$i]] = 1;
-                        }
-                    }
-                }
-            }
-            $share .= $colors[$col][1];
+            $share .= $squares[$bot_colors[$k][$i]];
 ?>
-                        <div class="tile <?= $colors[$col][0] ?>"><?= $wa[$i] ?></div>
+            
+                        <div class="tile <?= $colors[$bot_colors[$k][$i]] ?>"><?= $w[$i] ?></div>
 <?php
         }
         $share .= "\\n";
@@ -148,9 +98,15 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
                 </div>
 <?php
 } else {
+    if (isset($error)) {
 ?>
-                <p class="result-text">Give me a word to play with...</p>
+                <p class="error"><?= $error ?></p>
 <?php
+    } else {
+?>
+                <p class="result-text">Give me a word to play with!</p>
+<?php
+    }
 }
 ?>               
             </div>
@@ -158,8 +114,8 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
             <div class="card new-game-card">
                 <h3>New game</h3>
                 <form action="<?= base_url('bot') ?>" method="POST" class="inline-form">
-                    <input type="text" name="word" minlength="5" maxlength="5" placeholder="Insert new word..." required>
-                    <button type="submit" class="btn btn-primary">PLAY</button>
+                    <input type="text" name="word" minlength="5" maxlength="5" placeholder="New word..." required>
+                    <button type="submit" class="btn btn-primary">PLAY  <i class="fa-solid fa-play"></i></button>
                 </form>
             </div>
         </section>
@@ -174,10 +130,9 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
 if (!isset($p_words) || (count($p_words) != 6)) {
 ?>
                 <div class="input-group">
-                    <label>Add word:</label>
                     <div class="row-input">
-                        <input type="text" name="new"  minlength="5" maxlength="5" placeholder="Es. SLATE">
-                        <button type="submit" name="add" value="1" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
+                        <input type="text" name="new" id="add-word" minlength="5" maxlength="5" placeholder="Es. SLATE">
+                        <button type="submit" name="add" value="1" id="add-btn" class="btn"><i class="fa-solid fa-circle-plus"></i> add</button>
                     </div>
                 </div>
                 <br>
@@ -195,13 +150,12 @@ if (isset($p_words) && (count($p_words) != 0)) {
 ?>
                 <div class="helper-row-container">
                     <input type="hidden" name="w<?= $i ?>" value="<?= $w ?>">
-                    <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $colors[$i-1] ?>">
+                    <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $try_colors[$i-1] ?>">
                     <div class="wordle-row-interactive">
 <?php 
-        $col = ['gray', 'yellow', 'green'];
         for ($j=0; $j<5; $j++) {
 ?>
-                        <div class="tile interactive <?= $col[$colors[$i-1][$j]] ?>" onclick="cycleColor(this, <?= $j ?>, 'c<?= $i ?>')"><?= $w[$j] ?></div>
+                        <div class="tile interactive <?= $colors[$try_colors[$i-1][$j]] ?>" onclick="cycleColor(this, <?= $j ?>, 'c<?= $i ?>')"><?= $w[$j] ?></div>
 <?php
         }
 ?>
@@ -212,8 +166,9 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $i++;
     }
 ?>
+                <br>
                 <div class="actions-row">
-                    <a href="<?= base_url('helper') ?>" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
+                    <button type="button" class="btn" onclick="window.location.href='<?= base_url('helper') ?>';"><i class="fa-solid fa-rotate-left"></i> Reset</button>
                     <button type="submit" name="search" value="1" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
                 </div>
             </div>
@@ -223,52 +178,54 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $official = array_filter($res, fn($item) => (($item['ext'] == 0) && ($item['wordle'] === null)));
         $ext = array_filter($res, fn($item) => $item['ext'] == 1);
         $wordle = array_filter($res, fn($item) => $item['wordle'] !== null);
+        $co = count($official);
+        $ce = count($ext);
+        $cw = count($wordle);
 ?>
-                <div class="results-area">
-                    <div class="card">
-                        <h4 class="official">Official (<?= count($official) ?>)</h4>
-                        <div class="word-tags">
+            
+            <div class="card">
+                <div class="word-tags">
+                    <div class="vertical-list">
+                        <span class="official">List (<?= $co ?>)</span>
 <?php
         foreach ($official as $w_o) {
 ?>
-                        <span><?= $w_o['word'] ?></span>
+                        <span onclick="addWord('<?= $w_o['word'] ?>')"><?= $w_o['word'] ?></span>
 <?php
         }
 ?>
-                        </div>
                     </div>
-                </div>
 
-                <div class="results-area">
-                    <div class="card">
-                        <h4 class="ext">Extended (<?= count($ext) ?>)</h4>
-                        <div class="word-tags">
+                    <div class="vertical-list">
+                        <span class="ext">Ext (<?= $ce ?>)</span>
 <?php
         foreach ($ext as $w_e) {
 ?>
-                        <span><?= $w_e['word'] ?></span>
+                        <span onclick="addWord('<?= $w_e['word'] ?>')"><?= $w_e['word'] ?></span>
 <?php
         }
 ?>
-                        </div>
                     </div>
-                </div>
 
-                <div class="results-area">
-                    <div class="card">
-                        <h4 class="wordle">Past used* (<?= count($wordle) ?>)</h4>
-                        <div class="word-tags">
+                    <div class="vertical-list">
+                        <span class="wordle">Past* (<?= $cw ?>)</span>
 <?php
         foreach ($wordle as $w_w) {
 ?>
-                        <span><?= $w_w['word'] ?></span>
+                        <span onclick="addWord('<?= $w_w['word'] ?>')"><?= $w_w['word'] ?></span>
 <?php
         }
 ?>
-                        </div>
-                        <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                     </div>
                 </div>
+                <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
+            </div>
+<?php
+    } elseif (isset($res) && (count($res) == 0)) {
+?>
+        <div class="card">
+            Sorry... no words found!!
+        </div>
 <?php
     }
 } else {
@@ -289,14 +246,15 @@ if (isset($p_words) && (count($p_words) != 0)) {
             <div class="card">
                 Select words:
                 <div class="word-tags">
-                    <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> Official</span>
-                    <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Extended</span>
-                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used*</span> 
+                    <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> List</span>
+                    <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Ext</span>
+                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past*</span> 
                 </div>
+                <br>
                 <div class="search-box">
                     <form action="#">
-                        <input type="text" id="pattern" name="pattern" placeholder="RegExp Search..." required>
-                        <button type="button" class="btn btn-primary" onclick="printWords()">SEARCH</button>
+                        <input type="text" id="pattern" name="pattern" placeholder="RegExp..." required>
+                        <button type="button" class="btn btn-primary" onclick="printWords()">SEARCH  <i class="fa-solid fa-play"></i></button>
                     </form>
                     <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                 </div>
@@ -401,6 +359,13 @@ if (isset($p_words) && (count($p_words) != 0)) {
             });
             wl.appendChild(fragment);
             num.innerHTML = count;
+        }
+
+        function addWord(word) {
+            const input = document.getElementById('add-word');
+            const button = document.getElementById('add-btn');
+            input.value = word;
+            button.click();
         }
 
         document.addEventListener("DOMContentLoaded", () => {

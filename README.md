@@ -55,8 +55,8 @@
   </ol>
 </details>
 
-
 <p align="right"><a href="#readme-top">🔼 top</a></p>
+
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -66,12 +66,14 @@ Play Wordle against the 🤖 BOT, read words list or use gWordle Helper to help 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 
 ### Built With
-- [![PHP][PHP]][PHP-url]
-- [![CodeIgniter][CodeIgniter.com]][CodeIgniter-url]
+- [![PHP]][PHP-url]
+- [![CodeIgniter]][CodeIgniter-url]
 - [![MariaDB]][MariaDB-url]
-- [![Git]][Git-url]
+- [![GitHub]][Git-url]
+- [![FontAwesome]][FA-url]
 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -98,28 +100,21 @@ A LAMP stack (Linux-Apache-MySQL-PHP).
    ```
 2. create and populate database (with SQL scripts)
 3. configure baseURL and database in .env file
-4. set $autoRoute = true; in app/Config/Routing.php
-5. delete or comment out home route in app/Config/Routes.php
-6. remove app files managed by git repository
-   ```sh
-   rm LICENSE
-   rm README.md
-   rm app/Controllers/Home.php
-   ```
-7. Clone the repo (main branch) in your newly created CodeIgniter app (gwordle directory)
+4. Clone the repo (main branch) in your newly created CodeIgniter app (gwordle directory)
    ```sh
    git clone https://github.com/gcangini/gwordle
    ```
-8. Change git remote url to avoid accidental pushes to base project
+5. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin https://github.com/<YOUR_USER>/<YOUR_PROJECT>
    git remote -v # confirm the changes
    ```
-9. configure sitemap.xml with your own URL
-10. setup the daily update of past used words with a call to /five-forks (i.e. with crontab wget)
-11. Enjoy :-)
+6. configure sitemap.xml with your own URL
+7. setup the daily update of past used words with a call to /five-forks (i.e. with crontab wget)
+8. Enjoy :-)
 
 <p align="right">(<a href="#readme-top">🔼 top</a>)</p>
+
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -156,7 +151,6 @@ Distributed under the <a href="https://creativecommons.org/publicdomain/zero/1.0
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 
 
-
 <!-- CONTACT -->
 ## Contact
 
@@ -168,6 +162,7 @@ Online web app: [https://gwordle.gigini.it](https://gwordle.gigini.it)
 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 
+
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
@@ -176,14 +171,17 @@ Online web app: [https://gwordle.gigini.it](https://gwordle.gigini.it)
 
 <p align="right"><a href="#readme-top">🔼 top</a></p>
 
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 <!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->
-[PHP]: https://img.shields.io/badge/php-%23777BB4.svg?&logo=php&logoColor=white
+[PHP]: https://img.shields.io/badge/php-787CB5?style=for-the-badge&logo=php&logoColor=white
 [PHP-url]: https://www.php.net
-[CodeIgniter.com]: https://img.shields.io/badge/CodeIgniter-35495E?style=for-the-badge&logo=codeigniter
+[CodeIgniter]: https://img.shields.io/badge/CodeIgniter-666666?style=for-the-badge&logo=codeigniter&logoColor=DD4814
 [CodeIgniter-url]: https://codeigniter.com/
-[MariaDB]: https://img.shields.io/badge/MariaDB-003545?logo=mariadb&logoColor=white
+[MariaDB]: https://img.shields.io/badge/MariaDB-1F305F?style=for-the-badge&logo=mariadb&logoColor=C0765A
 [MariaDB-url]: https://mariadb.org/
-[Git]: https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff
+[GitHub]: https://img.shields.io/badge/GitHub-CCCCCC?style=for-the-badge&logo=github&logoColor=000000
 [Git-url]: https://github.com/
+[FontAwesome]: https://img.shields.io/badge/FontAwesome-F5C518?style=for-the-badge&logo=fontawesome&logoColor=418FDE
+[FA-url]: https://fontawesome.com/

@@ -31,6 +31,7 @@ class Bot extends BaseController
         return $res;
     }
 
+    // play Wordle trying to guess word $sol
     private function playWordle($sol) {
         // load all words that have already appeared and calculate letter usage statistics
         $wordle = array_filter($this->data['words'], fn($item) => $item['wordle'] !== null);
@@ -44,7 +45,7 @@ class Bot extends BaseController
         $words_sel = $this->create_list($off);
 
         $ext = false; // true if working with the extended list
-        $rep = false; // true if I work with words that have already been released
+        $rep = false; // true if working with past used words
         $tries = array();
         // first attempt (first word of the sorted array $word_sel)
         $try = current($words_sel)[1];
@@ -102,10 +103,11 @@ class Bot extends BaseController
                         if ($ext) {
                             if ($rep) {
                                 // already tried all the lists (official, extended, already released)
-                                return "Word $sol is not in my dictionary";
+                                // Word $sol is not dictionary
+                                return null;
                             } else {
                                 // already looking for the extended list
-                                // try to replay words that have already been used
+                                // try to replay past used words
                                 $rep = true;
                                 $words_sel = $this->create_list($wordles);
                             }
@@ -147,6 +149,71 @@ class Bot extends BaseController
         return $tries;
     }
 
+    // format result array of Words ($res) with colors
+    private function formatWords($res,$sol) {
+        $colors = array();
+        $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $aa = array();
+        for($i=0; $i<strlen($alphabet); $i++) {
+            $aa[substr($alphabet,$i,1)]=0;
+        }
+        $sa = str_split($sol);
+        foreach ($res as $k => $w) {
+            $colors[$k] = array();
+            $wa = str_split($w);
+            for ($i=0; $i<5; $i++) {
+                if ($wa[$i] == $sa[$i]) { // GREEN
+                    $col = 2;
+                    $aa[$wa[$i]] = 2;
+                } elseif (!in_array($wa[$i], $sa)) { // GRAY
+                    $col = 0;
+                    if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
+                        $aa[$wa[$i]] = 0;
+                } else {
+                    if (substr_count($sol,$wa[$i]) >= substr_count($w,$wa[$i])) { // YELLOW
+                        $col = 1;
+                        if ($aa[$wa[$i]] != 2) 
+                            $aa[$wa[$i]] = 1;
+                    } else {
+                        $tot = 0;
+                        $greens = 0;
+                        for ($j=0; $j<5; $j++) {
+                            if ($sa[$j] == $wa[$i]) {
+                                $tot = $tot+1;
+                                if ($sa[$j] == $wa[$j]) {
+                                    $greens = $greens+1;
+                                }
+                            }
+                        }
+                        $yellows = $tot-$greens;
+                        if ($yellows == 0) { // GRAY
+                            $col = 0;
+                            if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
+                                $aa[$wa[$i]] = 0;
+                        } else {
+                            for ($j=0; $j<$i; $j++) {
+                                if (($wa[$j] == $wa[$i]) && ($wa[$j] != $sa[$j])) {
+                                    $yellows = $yellows-1;
+                                }
+                            }
+                            if ($yellows <= 0) { // GRAY
+                                $col = 0;
+                                if (($aa[$wa[$i]] != 2) && ($aa[$wa[$i]] != 1))
+                                    $aa[$wa[$i]] = 0;
+                            } else { // YELLOW
+                                $col = 1;
+                                if ($aa[$wa[$i]] != 2)
+                                    $aa[$wa[$i]] = 1;
+                            }
+                        }
+                    }
+                }
+                $colors[$k][$i] = $col;
+            }
+        }
+        return $colors;
+    }
+
     private function init() {
         $words_model = model('WordsModel');
         $this->data['words'] = $words_model->orderBy('word ASC')->findAll();
@@ -162,6 +229,11 @@ class Bot extends BaseController
                 (strspn($sol,$this->alphabet) == 5)    // all literals
                 ) {
                 $this->data['res'] = $this->playWordle($sol);
+                if ($this->data['res']) {
+                    $this->data['bot_colors'] = $this->formatWords($this->data['res'],$sol);
+                } else {
+                    $this->data['error'] = "Word \"$sol\" is not in my dictionary!";
+                }
                 $this->data['sol'] = $sol;
             }
         }

@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main  # Lo script parte ogni volta che fai push su main
+      - dev # Lo script parte ogni volta che fai push su dev
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env: # Se il branch è main, usa la produzione, altrimenti (dev) usa la cartella dev
+      TARGET_DIR: ${{ github.ref == 'refs/heads/main' && '/var/www/gwordle/' || '/var/www/gw-dev/' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,8 +23,8 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i --exclude=.git" # do not "delete"
           # ARGS: "-rlgoDzvc -i --delete" # Sincronizza i file e cancella quelli eliminati
-          TARGET: "/var/www/gwordle/" # La cartella del tuo sito sul Droplet
-          EXCLUDE: "/.github/, /.git/" # Cartelle da non caricare
+          TARGET: ${{ env.TARGET_DIR }} # La cartella del tuo sito sul Droplet
+          EXCLUDE: "/.github/, /.git/, .env" # Cartelle e files da non caricare
 
       - name: Post-deployment fix permissions
         uses: appleboy/ssh-action@master
@@ -30,8 +33,17 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/gwordle/
+            cd ${{ env.TARGET_DIR }}
+
+            # 1. Crea la struttura 'writable' se manca
+            mkdir -p writable/cache writable/logs writable/session writable/debugbar writable/uploads
+
+            # 2. Installa le dipendenze
             composer install --no-dev --optimize-autoloader
+
+            # 3. Ottimizza il framework
             php spark optimize
+
+            # 4. Sistema i permessi
             sudo chown -R gcangini:www-data .
             sudo chmod -R 775 writable

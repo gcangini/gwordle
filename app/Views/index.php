@@ -240,9 +240,9 @@ if (isset($p_words) && (count($p_words) != 0)) {
             <div class="card">
                 Select words:
                 <div class="word-tags">
-                    <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> Official</span>
-                    <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Extended</span>
-                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past used*</span> 
+                    <span class="official"><input type="checkbox" id="check-official" checked onchange="printWords();"> List</span>
+                    <span class="ext"><input type="checkbox" id="check-ext" onchange="printWords();"> Ext</span>
+                    <span class="wordle"><input type="checkbox" id="check-wordle" onchange="printWords();"> Past*</span> 
                 </div>
                 <br>
                 <div class="search-box">

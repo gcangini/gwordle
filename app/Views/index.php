@@ -98,9 +98,15 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
                 </div>
 <?php
 } else {
+    if (isset($error)) {
+?>
+                <p class="error"><?= $error ?></p>
+<?php
+    } else {
 ?>
                 <p class="result-text">Give me a word to play with!</p>
 <?php
+    }
 }
 ?>               
             </div>

@@ -103,7 +103,8 @@ class Bot extends BaseController
                         if ($ext) {
                             if ($rep) {
                                 // already tried all the lists (official, extended, already released)
-                                return "Word $sol is not in my dictionary";
+                                // Word $sol is not dictionary
+                                return null;
                             } else {
                                 // already looking for the extended list
                                 // try to replay past used words
@@ -228,7 +229,11 @@ class Bot extends BaseController
                 (strspn($sol,$this->alphabet) == 5)    // all literals
                 ) {
                 $this->data['res'] = $this->playWordle($sol);
-                $this->data['bot_colors'] = $this->formatWords($this->data['res'],$sol);
+                if ($this->data['res']) {
+                    $this->data['bot_colors'] = $this->formatWords($this->data['res'],$sol);
+                } else {
+                    $this->data['error'] = "Word \"$sol\" is not in my dictionary!";
+                }
                 $this->data['sol'] = $sol;
             }
         }

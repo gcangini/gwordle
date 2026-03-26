@@ -46,6 +46,11 @@ a {
     vertical-align: middle;
 }
 
+.error {
+    color: red;
+    font-style: italic;
+}
+
 /* --- HEADER --- */
 .app-header {
     position: fixed;

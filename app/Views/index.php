@@ -54,8 +54,10 @@
             <div class="card">
                 <h2><i class="fa-solid fa-robot"></i> BOT play</h2>
 <?php
+$colors = ["gray","yellow","green"];
+$squares = ["⬜","🟨","🟩"];
+
 if (isset($res) && (count($res)!=0) && isset($sol)) {
-    $colors = [["gray","⬜"],["yellow","🟨"],["green","🟩"]];
     // check if last try is the solution
     // res array starts from 1, that's why last one is count($res)
     $success = ($res[count($res)] == $sol);
@@ -69,10 +71,10 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
                     <div class="row">
 <?php
         for ($i=0; $i<5; $i++) {
-            $share .= $colors[$cols[$k][$i]][1];
+            $share .= $squares[$bot_colors[$k][$i]];
 ?>
             
-                        <div class="tile <?= $colors[$cols[$k][$i]][0] ?>"><?= $w[$i] ?></div>
+                        <div class="tile <?= $colors[$bot_colors[$k][$i]] ?>"><?= $w[$i] ?></div>
 <?php
         }
         $share .= "\\n";
@@ -107,7 +109,7 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
                 <h3>New game</h3>
                 <form action="<?= base_url('bot') ?>" method="POST" class="inline-form">
                     <input type="text" name="word" minlength="5" maxlength="5" placeholder="New word..." required>
-                    <button type="submit" class="btn btn-primary">PLAY</button>
+                    <button type="submit" class="btn btn-primary">PLAY  <i class="fa-solid fa-play"></i></button>
                 </form>
             </div>
         </section>
@@ -122,10 +124,9 @@ if (isset($res) && (count($res)!=0) && isset($sol)) {
 if (!isset($p_words) || (count($p_words) != 6)) {
 ?>
                 <div class="input-group">
-                    <label>Add word:</label>
                     <div class="row-input">
                         <input type="text" name="new" id="add-word" minlength="5" maxlength="5" placeholder="Es. SLATE">
-                        <button type="submit" name="add" value="1" id="add-btn" class="btn-icon-small"><i class="fa-solid fa-circle-plus"></i> add</button>
+                        <button type="submit" name="add" value="1" id="add-btn" class="btn"><i class="fa-solid fa-circle-plus"></i> add</button>
                     </div>
                 </div>
                 <br>
@@ -143,13 +144,12 @@ if (isset($p_words) && (count($p_words) != 0)) {
 ?>
                 <div class="helper-row-container">
                     <input type="hidden" name="w<?= $i ?>" value="<?= $w ?>">
-                    <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $colors[$i-1] ?>">
+                    <input type="hidden" name="c<?= $i ?>" id="c<?= $i ?>" value="<?= $try_colors[$i-1] ?>">
                     <div class="wordle-row-interactive">
 <?php 
-        $col = ['gray', 'yellow', 'green'];
         for ($j=0; $j<5; $j++) {
 ?>
-                        <div class="tile interactive <?= $col[$colors[$i-1][$j]] ?>" onclick="cycleColor(this, <?= $j ?>, 'c<?= $i ?>')"><?= $w[$j] ?></div>
+                        <div class="tile interactive <?= $colors[$try_colors[$i-1][$j]] ?>" onclick="cycleColor(this, <?= $j ?>, 'c<?= $i ?>')"><?= $w[$j] ?></div>
 <?php
         }
 ?>
@@ -160,8 +160,9 @@ if (isset($p_words) && (count($p_words) != 0)) {
         $i++;
     }
 ?>
+                <br>
                 <div class="actions-row">
-                    <a href="<?= base_url('helper') ?>" class="btn btn-text"><i class="fa-solid fa-rotate-left"></i> Reset</a>
+                    <button type="button" class="btn" onclick="window.location.href='<?= base_url('helper') ?>';"><i class="fa-solid fa-rotate-left"></i> Reset</button>
                     <button type="submit" name="search" value="1" class="btn btn-primary">GO <i class="fa-solid fa-play"></i></button>
                 </div>
             </div>
@@ -246,8 +247,8 @@ if (isset($p_words) && (count($p_words) != 0)) {
                 <br>
                 <div class="search-box">
                     <form action="#">
-                        <input type="text" id="pattern" name="pattern" placeholder="RegExp Search..." required>
-                        <button type="button" class="btn btn-primary" onclick="printWords()">SEARCH</button>
+                        <input type="text" id="pattern" name="pattern" placeholder="RegExp..." required>
+                        <button type="button" class="btn btn-primary" onclick="printWords()">SEARCH  <i class="fa-solid fa-play"></i></button>
                     </form>
                     <span style="text-align:right;font-style: italic; font-size: 0.9rem;">(*) courtesy of <a href="https://www.fiveforks.com/wordle" target="_blank">Five Forks</a></span>
                 </div>

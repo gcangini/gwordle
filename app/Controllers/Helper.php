@@ -11,7 +11,7 @@ class Helper extends BaseController
     private function getData() {
         $i=1;
         $this->data['p_words'] = array();
-        $this->data['colors'] = array();
+        $this->data['try_colors'] = array();
         for ($i=1; $i<7;$i++) { // check up to 6 words
             $w = request()->getPost('w'.$i);
             if (!isset($w)) { // exit from the cycle
@@ -25,7 +25,7 @@ class Helper extends BaseController
                 (!in_array($w,$this->data['p_words']))      // not already present
                 ) {
                 $this->data['p_words'][] = $w;
-                $this->data['colors'][] = request()->getPost('c'.$i);
+                $this->data['try_colors'][] = request()->getPost('c'.$i);
             }
         }
 
@@ -40,7 +40,7 @@ class Helper extends BaseController
             (!in_array($new,$this->data['p_words']))    // not already present
             ) {
             $this->data['p_words'][] = $new;
-            $this->data['colors'][] = "00000";
+            $this->data['try_colors'][] = "00000";
         }
 
         // get result ?
@@ -61,7 +61,7 @@ class Helper extends BaseController
             $pattern[] = $this->alphabet;
         }
         foreach ($this->data['p_words'] as $word) {
-            $color = $this->data['colors'][$i];
+            $color = $this->data['try_colors'][$i];
             $tmp_gray = "";
             $tmp_yellow = "";
             for ($j=0; $j<5; $j++) {

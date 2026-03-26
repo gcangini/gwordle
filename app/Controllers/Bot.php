@@ -228,7 +228,7 @@ class Bot extends BaseController
                 (strspn($sol,$this->alphabet) == 5)    // all literals
                 ) {
                 $this->data['res'] = $this->playWordle($sol);
-                $this->data['cols'] = $this->formatWords($this->data['res'],$sol);
+                $this->data['bot_colors'] = $this->formatWords($this->data['res'],$sol);
                 $this->data['sol'] = $sol;
             }
         }
